@@ -1,0 +1,2583 @@
+/* --- ПОДКЛЮЧЕНИЕ СВОИХ ШРИФТОВ --- */
+@font-face {
+    font-family: 'MyHeaderFont';
+    src: url('../assets/fonts/header-font.woff2') format('woff2'),
+         url('../assets/fonts/header-font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'MyBodyFont';
+    src: url('../assets/fonts/body-font.woff2') format('woff2'),
+         url('../assets/fonts/body-font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'MyTextFont';
+    src: url('../assets/fonts/text-font.woff2') format('woff2'),
+         url('../assets/fonts/text-font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ========== ПЕРЕМЕННЫЕ ========== */
+:root {
+    /* Основная палитра */
+    --forest-deep: #283618;
+    --forest-sage: #606c38;
+    --wood-warm: #C9A25B;
+    --gold-glow: #e6c889;
+    --cream-paper: #fefae0;
+    --text-dark: #0E1308;
+    --lightGreen: #678351;
+    
+    /* Эффекты */
+    --shadow-soft: 0 10px 30px rgba(42, 75, 60, 0.15);
+    --magic-glow: 0 0 15px rgba(201, 162, 91, 0.3), 0 5px 20px rgba(0,0,0,0.1);
+    --transition: all 0.5s ease;
+}
+
+/* ========== СБРОС И БАЗОВЫЕ СТИЛИ ========== */
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
+
+body {
+    font-family: 'MyBodyFont', sans-serif;
+    background-color: var(--cream-paper);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
+    color: var(--text-dark);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Кастомный курсор (только ПК) */
+body, a, button, .btn, .map-container, .faq-question, #sound-control, input, label {
+    cursor: none !important;
+}
+
+#custom-cursor, #entry-cursor {
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 30px; 
+    height: 30px;
+    pointer-events: none; 
+    z-index: 100000;
+    color: var(--wood-warm); 
+    font-size: 24px;
+    transform: translate(-50%, -50%) rotate(-20deg);
+    transition: transform 0.15s ease, color 0.3s ease;
+    filter: drop-shadow(0 0 5px rgba(201, 162, 91, 0.6));
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+body.hovering #custom-cursor, 
+body.hovering #entry-cursor {
+    transform: translate(-50%, -50%) scale(1.4) rotate(0deg);
+    color: var(--forest-deep); 
+}
+
+/* ========== ТИПОГРАФИКА ========== */
+h1, h2, h3, .couple-names, .entry-title, .weather-header span, 
+.faq-question, .btn, .countdown span, .faq-btn {
+    font-family: 'MyHeaderFont', serif;
+    font-weight: 500;
+}
+
+h2 {
+    font-size: 3.5rem; 
+    margin-top: 40px; 
+    margin-bottom: 40px;
+    text-align: center; 
+    color: var(--forest-deep);
+    line-height: 1.1;
+    text-shadow: 0 0 10px rgba(42, 75, 60, 0.1);
+}
+
+.light-title {
+    color: #f7f4e8;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+/* ========== СТРАНИЦА ВХОДА (ENTRY PAGE) ========== */
+#entry-page {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: #283618; 
+    color: #e8f5e9;
+    overflow: hidden; 
+    z-index: 10000; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    transition: opacity 1s ease;
+}
+
+/* Фон и текстура */
+.entry-bg-pastel {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background-color: #fefae0;
+    z-index: 1; 
+}
+
+.entry-bg-texture {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
+    z-index: 2; 
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Вензеля - строго по углам */
+.corner-decor {
+    position: absolute; 
+    width: 350px; 
+    height: 350px; 
+    background-image: url('../assets/img/corner.png'); 
+    background-size: contain; 
+    background-repeat: no-repeat;
+    background-position: contain;
+    pointer-events: none; 
+    z-index: 3;
+    /* Специально для черных PNG - получаем #606C38 */
+    filter: invert(45%) sepia(50%) saturate(350%) hue-rotate(52deg) brightness(85%) contrast(95%);
+    opacity: 0.9; 
+}
+
+/* Левый верхний угол */
+.corner-decor.top-left { 
+    top: 0; 
+    left: 0; 
+    transform: rotate(0deg); 
+}
+
+/* Правый верхний угол */
+.corner-decor.top-right { 
+    top: 0; 
+    right: 0; 
+    transform: rotate(90deg); 
+}
+
+/* Левый нижний угол */
+.corner-decor.bottom-left { 
+    bottom: 0; 
+    left: 0; 
+    transform: rotate(-90deg); 
+}
+
+/* Правый нижний угол */
+.corner-decor.bottom-right { 
+    bottom: 0; 
+    right: 0; 
+    transform: rotate(180deg); 
+}
+
+/* Адаптация для мобильных - только размер, позиции остаются по углам */
+@media (max-width: 768px) {
+    .corner-decor {
+        width: 200px !important;
+        height: 200px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .corner-decor {
+        width: 150px !important;
+        height: 150px !important;
+    }
+}
+
+@media (max-width: 375px) {
+    .corner-decor {
+        width: 120px !important;
+        height: 120px !important;
+    }
+}
+/* ДЕРЕВО-КНОПКА - исправлено для черных PNG */
+.entry-tree-btn {
+    position: absolute;
+    top: 40%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55vmin; 
+    height: 55vmin;
+    background-image: url('../assets/img/yggdrasil-lg.png');
+    background-size: contain; 
+    background-repeat: no-repeat; 
+    background-position: center;
+    z-index: 10;
+    cursor: pointer;
+    transition: all 0.8s ease;
+    /* Фильтр для цвета #C9A25B */
+    filter: invert(70%) sepia(50%) saturate(400%) hue-rotate(350deg) brightness(90%) contrast(90%);
+    opacity: 0.95;
+}
+@media (orientation: portrait) {
+    .entry-tree-btn {
+        top: 60%; /* Опускаем ниже */
+    }
+}
+.entry-tree-btn:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    /* Сохраняем цвет и добавляем свечение */
+    filter: invert(70%) sepia(50%) saturate(400%) hue-rotate(350deg) brightness(100%) contrast(95%) drop-shadow(0 0 30px #C9A25B);
+    
+}
+/* Текст на странице входа */
+.entry-text-container { 
+    position: absolute;
+    bottom: 15%; /* Увеличили с 10% до 15% */
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 20;
+    pointer-events: none; 
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.entry-title { 
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    margin-bottom: 10px;
+    color: #C9A25B;
+    line-height: 1.2;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    word-wrap: break-word;
+}
+
+.entry-subtitle { 
+    font-family: 'MyBodyFont', sans-serif; 
+    font-size: clamp(0.8rem, 3vw, 1.1rem);
+    color: #C9A25B; 
+    opacity: 0.9;
+    font-weight: 400; 
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+/* Адаптация для разных устройств - текст поднят выше */
+@media (max-width: 1024px) {
+    .entry-text-container {
+        bottom: 12%; /* Увеличили с 8% до 12% */
+    }
+    
+    .entry-title {
+        max-width: 800px;
+    }
+    
+    .entry-subtitle {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 768px) {
+    .entry-text-container {
+        bottom: 10%; /* Увеличили с 7% до 10% */
+        padding: 0 15px;
+    }
+    
+    .entry-title {
+        font-size: clamp(1.6rem, 7vw, 2.2rem);
+        margin-bottom: 8px;
+    }
+    
+    .entry-subtitle {
+        font-size: clamp(0.7rem, 3.5vw, 0.9rem);
+        letter-spacing: 1.5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .entry-text-container {
+        bottom: 9%; /* Увеличили с 6% до 9% */
+        padding: 0 12px;
+    }
+    
+    .entry-title {
+        font-size: clamp(1.4rem, 7vw, 1.8rem);
+        margin-bottom: 6px;
+    }
+    
+    .entry-subtitle {
+        font-size: clamp(0.6rem, 3.5vw, 0.8rem);
+        letter-spacing: 1px;
+        max-width: 280px;
+    }
+}
+
+@media (max-width: 375px) {
+    .entry-text-container {
+        bottom: 8%; /* Увеличили с 5% до 8% */
+        padding: 0 10px;
+    }
+    
+    .entry-title {
+        font-size: clamp(1.2rem, 6vw, 1.5rem);
+        margin-bottom: 5px;
+    }
+    
+    .entry-subtitle {
+        font-size: clamp(0.55rem, 3vw, 0.7rem);
+        letter-spacing: 0.5px;
+        max-width: 240px;
+    }
+}
+
+/* Для очень больших экранов */
+@media (min-width: 1600px) {
+    .entry-text-container {
+        bottom: 18%; /* Увеличили с 12% до 18% */
+    }
+    
+    .entry-title {
+        font-size: 3.2rem;
+        max-width: 1000px;
+    }
+    
+    .entry-subtitle {
+        font-size: 1.3rem;
+        max-width: 800px;
+    }
+}
+
+.entry-fade-in { animation: fadeInUp 0.8s ease-out forwards; }
+.entry-delay-1 { animation-delay: 0.2s; opacity: 0; }
+.entry-delay-2 { animation-delay: 0.4s; opacity: 0; }
+
+@keyframes fadeInUp { 
+    from { opacity: 0; transform: translateY(20px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+.entry-transition-overlay {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: #0c1a12; 
+    z-index: 100; 
+    opacity: 0; 
+    pointer-events: none; 
+    transition: opacity 0.8s ease;
+}
+
+/* ========== ОСНОВНОЙ САЙТ ========== */
+
+/* Светлячки на главной странице */
+#fireflies-container { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    pointer-events: none; 
+    z-index: 999; 
+    overflow: hidden; 
+}
+
+.firefly {
+    position: absolute; 
+    width: 35px;
+    height: 35px;
+    background-image: url('../assets/img/firefly.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: brightness(0) invert(1) sepia(100%) saturate(800%) hue-rotate(5deg) brightness(150%) contrast(120%);
+    animation: fly 15s infinite ease-in-out;
+    opacity: 0.95;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.firefly::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle, 
+        rgba(255, 215, 0, 0.8) 0%, 
+        rgba(255, 200, 0, 0.4) 40%, 
+        rgba(255, 170, 0, 0.15) 70%, 
+        transparent 100%);
+    z-index: -1;
+    animation: glowPulse 2.5s infinite ease-in-out;
+}
+
+/* Анимация полета */
+@keyframes floatFirefly {
+    0% { 
+        transform: translate(0, 0) scale(0.8); 
+        opacity: 0.7; 
+    }
+    25% { 
+        transform: translate(20px, -30px) scale(1); 
+        opacity: 1; 
+    }
+    50% { 
+        transform: translate(-15px, 20px) scale(1.1); 
+        opacity: 1; 
+    }
+    75% { 
+        transform: translate(25px, 15px) scale(0.9); 
+        opacity: 0.9; 
+    }
+    100% { 
+        transform: translate(0, 0) scale(0.8); 
+        opacity: 0.7; 
+    }
+}
+
+@keyframes fly {
+    0% { 
+        opacity: 0.7; 
+        transform: translate(0, 0) scale(0.8);
+    }
+    20% { 
+        opacity: 1; 
+        transform: translate(var(--x2), var(--y2)) scale(1);
+    }
+    50% { 
+        opacity: 1; 
+        transform: translate(var(--x4), var(--y4)) scale(1.2);
+    }
+    80% { 
+        opacity: 0.9; 
+        transform: translate(var(--x2), var(--y2)) scale(0.9);
+    }
+    100% { 
+        opacity: 0.7; 
+        transform: translate(0, 0) scale(0.8);
+    }
+}
+
+/* Разные размеры для разнообразия */
+.entry-firefly:nth-child(odd) {
+    width: 35px;
+    height: 35px;
+}
+
+.entry-firefly:nth-child(3n) {
+    width: 45px;
+    height: 45px;
+    filter: brightness(0) invert(1) sepia(100%) saturate(800%) hue-rotate(5deg) brightness(170%) contrast(120%);
+}
+
+.entry-firefly:nth-child(5n+2) {
+    width: 30px;
+    height: 30px;
+}
+
+/* Король светлячков - самый яркий */
+.entry-firefly:nth-child(7n+4) {
+    width: 55px;
+    height: 55px;
+    filter: brightness(0) invert(1) sepia(100%) saturate(900%) hue-rotate(0deg) brightness(180%) contrast(130%);
+    animation-duration: 16s;
+}
+
+.entry-firefly:nth-child(7n+4)::after {
+    background: radial-gradient(circle, 
+        rgba(255, 230, 0, 1) 0%, 
+        rgba(255, 200, 0, 0.7) 40%, 
+        rgba(255, 150, 0, 0.3) 70%, 
+        transparent 100%);
+    animation-duration: 4s;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+    .entry-firefly {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .entry-firefly:nth-child(3n) {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .entry-firefly:nth-child(7n+4) {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .firefly {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .entry-firefly {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .entry-firefly:nth-child(3n) {
+        width: 30px;
+        height: 30px;
+    }
+}
+/* Шапка и герой */
+header {
+    min-height: 100vh; 
+    padding: 60px 20px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    background: linear-gradient(rgba(26, 47, 37, 0.5), rgba(42, 75, 60, 0.4)), 
+                url('../assets/img/view.jpg') center center / cover no-repeat;
+    background-attachment: fixed; 
+    text-align: center;
+
+}
+
+.hero {
+    background: #fefae0; 
+    padding: 70px 40px; 
+    border-radius: 16px; 
+    border: 2px solid var(--wood-warm); 
+    outline: 3px solid rgba(201, 162, 91, 0.3); 
+    outline-offset: -8px;
+    max-width: 700px; 
+    width: 100%; 
+    backdrop-filter: blur(8px); 
+    animation: fadeIn 1.5s ease-out;
+    box-shadow: var(--magic-glow); 
+    position: relative; 
+    z-index: 10;
+}
+
+.hero h1 { 
+    font-size: clamp(2.2rem, 8vw, 3.8rem); 
+    font-weight: 500;
+    margin-bottom: 15px; 
+    color: var(--forest-deep); 
+    line-height: 1.1; 
+}
+
+.hero .subtitle { 
+    font-size: 1.3rem; 
+    margin-bottom: 25px; 
+    color: var(--wood-warm); 
+    text-transform: uppercase; 
+    letter-spacing: 3px; 
+}
+
+.date {
+    font-size: 1.4rem;
+    margin: 20px 0;
+    font-family: 'MyHeaderFont', serif;
+}
+
+.date i {
+    margin-right: 10px;
+}
+
+.location {
+    margin-top: 30px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    font-family: 'MyBodyFont', sans-serif;
+}
+
+.couple-photo-container {
+    margin-top: 45px; 
+    padding: 10px; 
+    background: #fefae0;
+    border: 3px solid var(--wood-warm); 
+    border-radius: 8px; 
+    box-shadow: var(--magic-glow);
+    transform: rotate(-1deg);
+}
+
+.couple-photo { 
+    width: 100%; 
+    height: auto; 
+    display: block; 
+}
+
+/* Таймер */
+.countdown {
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: clamp(5px, 2vw, 15px);
+    margin: 40px auto; 
+    max-width: 600px; 
+    width: 100%;
+}
+
+.countdown div {
+    position: relative; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    aspect-ratio: 1 / 1; 
+    width: 100%; 
+    
+    /* Внутренние отступы */
+    padding: 5%;
+    box-sizing: border-box;
+    
+    border: 2px solid rgba(201, 162, 91, 0.3); 
+    border-radius: 50%;
+    background-image: radial-gradient(circle, #fefae0, rgba(247, 244, 232, 0.4));
+    box-shadow: 0 0 15px rgba(201, 162, 91, 0.15), inset 0 0 10px rgba(201, 162, 91, 0.1);
+}
+
+.countdown span {
+    color: var(--wood-warm); 
+    line-height: 1;
+    font-family: 'MyHeaderFont', serif;
+    font-size: clamp(1rem, 8vw, 2rem);
+    word-break: break-word;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(201, 162, 91, 0.6); 
+    position: relative; 
+    z-index: 2;
+}
+
+.countdown small {
+    font-size: clamp(0.5rem, 3vw, 0.75rem);
+    color: var(--forest-deep); 
+    text-transform: uppercase;
+    letter-spacing: 1px; 
+    font-weight: 600; 
+    font-family: 'MyBodyFont', sans-serif;
+    margin-top: 2px;
+    opacity: 0.8;
+    white-space: nowrap;
+}
+
+/* Исправление для проблемного диапазона 400-425px */
+@media (min-width: 400px) and (max-width: 425px) {
+    .countdown {
+        gap: 8px; /* Увеличиваем зазор чтобы было больше воздуха */
+    }
+    
+    .countdown div {
+        padding: 3%; /* Уменьшаем отступы внутри круга */
+    }
+    
+    .countdown span {
+        font-size: 1.3rem; /* Фиксированный размер для этого диапазона */
+    }
+    
+    .countdown small {
+        font-size: 0.55rem; /* Немного увеличиваем подписи */
+        letter-spacing: 0.8px;
+        margin-top: 3px;
+    }
+}
+
+/* Адаптация для экранов менее 400px */
+@media (max-width: 399px) {
+    .countdown {
+        gap: 5px;
+    }
+    
+    .countdown div {
+        padding: 2%;
+        border-width: 1.5px;
+    }
+    
+    .countdown span {
+        font-size: clamp(1rem, 6vw, 1.2rem);
+    }
+    
+    .countdown small {
+        font-size: 0.5rem;
+        letter-spacing: 0.5px;
+        margin-top: 2px;
+    }
+}
+
+/* Для экранов 426-450px тоже добавим плавный переход */
+@media (min-width: 426px) and (max-width: 450px) {
+    .countdown div {
+        padding: 4%;
+    }
+    
+    .countdown span {
+        font-size: 1.4rem;
+    }
+    
+    .countdown small {
+        font-size: 0.6rem;
+    }
+}
+
+/* Для экранов менее 320px */
+@media (max-width: 320px) {
+    .countdown {
+        gap: 3px;
+    }
+    
+    .countdown div {
+        padding: 1%;
+        border-width: 1px;
+    }
+    
+    .countdown span {
+        font-size: 0.9rem;
+    }
+    
+    .countdown small {
+        font-size: 0.4rem;
+        letter-spacing: 0.3px;
+    }
+}
+
+/* Падающие листья */
+.cursor-leaf {
+    will-change: transform, opacity;
+    position: absolute;
+    pointer-events: none;
+    z-index: 20000; 
+    font-size: 1rem;
+    animation: leaf-fall 1.5s forwards linear;
+}
+
+@keyframes leaf-fall {
+    0% { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); }
+    100% { opacity: 0; transform: translate(var(--tx), var(--ty)) rotate(var(--r)) scale(0.5); }
+}
+
+.timer-leaf-anim {
+    will-change: transform, opacity;
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffd700; 
+    font-size: 1.2rem;
+    pointer-events: none; 
+    z-index: 10;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.8));
+    animation: fallFromDigit 1.2s ease-out forwards;
+}
+
+@keyframes fallFromDigit {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5) rotate(0deg); }
+    20% { opacity: 1; transform: translate(-50%, -50%) scale(1.2) rotate(45deg); }
+    100% { opacity: 0; transform: translate(var(--fall-x), 100px) scale(0.8) rotate(180deg); }
+}
+
+/* Секции */
+section { 
+    padding: 90px 20px; 
+    max-width: 1100px; 
+    margin: 0 auto; 
+    position: relative; 
+    z-index: 10; 
+}
+
+.leaf-divider { 
+    text-align: center; 
+    margin: 50px 0; 
+    color: var(--wood-warm); 
+    font-size: 2rem; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 20px; 
+}
+
+.leaf-divider::before, 
+.leaf-divider::after { 
+    content: ''; 
+    display: block; 
+    height: 2px; 
+    width: 100px; 
+    background: linear-gradient(to right, transparent, var(--wood-warm), transparent); 
+    opacity: 0.8; 
+}
+
+.quote-text { 
+    text-align: center; 
+    font-size: clamp(1.8rem, 5vw, 2rem); 
+    color: var(--wood-warm); 
+    margin: -40px auto 60px; 
+    max-width: 800px; 
+    font-family: 'MyTextFont', serif; 
+}
+
+/* ========== СЕКЦИЯ ПРИГЛАШЕНИЯ ========== */
+.invitation-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.invitation-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.invitation-paper { 
+    text-align: center; 
+    width: 100%;
+    margin: 0 auto 40px; 
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    padding: clamp(30px, 6vw, 60px); 
+    background-color: #fefae0;
+    border: 2px solid var(--wood-warm); 
+    border-radius: 24px; 
+    box-shadow: var(--magic-glow); 
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.invitation-highlight {
+    margin-top: 25px; 
+    font-family: 'MyHeaderFont', serif; 
+    font-size: clamp(0.8rem, 5vw, 1rem); 
+    font-weight: 700; 
+    color: #606c38;
+    line-height: 1.3;
+    max-width: 100%;
+    display: block;
+}
+
+.invitation-paper p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+}
+
+.invitation-paper p:last-child {
+    margin-bottom: 0;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+    .invitation-section {
+        padding: 0 15px;
+    }
+    
+    .invitation-paper {
+        padding: 25px 20px;
+        border-radius: 20px;
+    }
+    
+    .invitation-paper p {
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+    }
+    
+    .invitation-highlight {
+        font-size: 1.4rem;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .invitation-section {
+        padding: 0 10px;
+    }
+    
+    .invitation-paper {
+        padding: 20px 15px;
+        border-radius: 16px;
+    }
+    
+    .invitation-paper p {
+        font-size: 0.9rem;
+        margin-bottom: 12px;
+        line-height: 1.5;
+    }
+    
+    .invitation-highlight {
+        font-size: 1.2rem;
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 375px) {
+    .invitation-paper {
+        padding: 15px 12px;
+    }
+    
+    .invitation-paper p {
+        font-size: 0.85rem;
+    }
+    
+    .invitation-highlight {
+        font-size: 1.1rem;
+    }
+}
+
+/* Детали и карточки */
+.details-container { 
+    background-color: rgba(143, 171, 147, 0.1); 
+    border-radius: 20px; 
+    padding: 60px 30px; 
+    border: 3px double var(--forest-sage); 
+    position: relative; 
+}
+
+.glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255,255,255,0.3);
+    backdrop-filter: blur(5px);
+}
+
+.glass-effect .card h3,
+.glass-effect .card p,
+.glass-effect .card i {
+    color: #fefae0;
+}
+
+.details { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 40px; 
+}
+
+.card { 
+    text-align: center; 
+}
+
+.card i { 
+    font-size: 3rem; 
+    color: var(--wood-warm); 
+    margin-bottom: 20px; 
+    filter: drop-shadow(0 0 8px var(--gold-glow)); 
+}
+
+.card h3 { 
+    margin: 15px 0; 
+    color: var(--forest-deep); 
+    font-size: 1.7rem; 
+}
+
+.card p {
+    font-family: 'MyBodyFont', sans-serif;
+    font-size: 1rem;
+}
+
+/* Параллакс */
+.parallax-section {
+    max-width: none !important;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 90px 0;
+}
+
+.parallax-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px; 
+    position: relative;
+    z-index: 2;
+}
+
+.overlay-dark {
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 1;
+}
+
+.bg-forest { background-image: url('../assets/img/forest-bg.jpg'); }
+.bg-mountains { background-image: url('../assets/img/mountains-bg.jpg'); }
+
+/* FAQ */
+.faq-container { 
+    max-width: 800px; 
+    margin: 60px auto 0; 
+}
+
+.faq-item { 
+    background-color: #fefae0; 
+    margin-bottom: 15px; 
+    border-radius: 12px; 
+    border: 1px solid var(--forest-sage); 
+    overflow: hidden; 
+    transition: all 0.3s ease;
+}
+
+.faq-question { 
+    padding: 20px 25px; 
+    cursor: pointer; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    font-size: 1.4rem; 
+    color: var(--forest-deep); 
+    background: #fefae0; 
+    transition: background 0.3s ease;
+}
+
+.faq-question:hover {
+    background: #678351;
+}
+
+.faq-question i:first-child {
+    width: 30px;
+    color: var(--wood-warm);
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .arrow {
+    transform: rotate(180deg);
+}
+
+.faq-answer { 
+    max-height: 0; 
+    overflow: hidden; 
+    transition: max-height 0.5s ease-out; 
+    background-color: #fefae0; 
+}
+
+.active .faq-answer { 
+    max-height: 800px; 
+}
+
+.faq-answer p, 
+.faq-answer .checklist,
+.faq-answer .taxi-buttons { 
+    padding: 20px 25px; 
+    margin: 0;
+}
+
+/* Кнопки FAQ */
+.faq-btn {
+    display: inline-block;
+    margin: 5px 5px 10px 0;
+    padding: 12px 20px;
+    background-color: transparent;
+    border: 1px solid var(--wood-warm);
+    color: var(--wood-warm);
+    border-radius: 30px;
+    text-decoration: none;
+    font-family: 'MyBodyFont', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.faq-btn i {
+    margin-right: 8px;
+    font-size: 1rem;
+}
+
+.faq-btn:hover {
+    background-color: var(--wood-warm);
+    color: var(--cream-paper);
+    transform: translateY(-2px);
+}
+
+/* Контейнер для кнопок такси */
+.taxi-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0 5px;
+}
+
+.taxi-buttons .faq-btn {
+    margin: 0;
+}
+
+/* Ссылки в FAQ */
+.faq-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    color: #2AABEE;
+    text-decoration: none;
+    font-weight: 500;
+    font-family: 'MyBodyFont', sans-serif;
+    font-size: 0.95rem;
+    border-bottom: 1px dashed rgba(42, 171, 238, 0.5);
+    padding-bottom: 2px;
+}
+
+/* Текстовые ссылки */
+.text-link {
+    color: var(--text-dark);
+    text-decoration: underline;
+    text-decoration-color: var(--wood-warm);
+    text-underline-offset: 3px;
+    font-family: 'MyBodyFont', sans-serif;
+    font-size: 0.95rem;
+}
+
+/* Чек-лист */
+.checklist {
+    list-style: none;
+    padding: 5px 0 10px;
+    margin: 0;
+}
+
+.checklist li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'MyBodyFont', sans-serif;
+    font-size: 0.95rem;
+}
+
+.checklist li i {
+    color: var(--wood-warm);
+    font-size: 1rem;
+    width: 20px;
+    text-align: center;
+}
+
+/* Предупреждение в такси */
+.warning-text {
+    color: #351819;
+    background: #dbd6d6;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border-left: 3px solid #351819;
+    margin-bottom: 15px;
+    font-family: 'MyBodyFont', sans-serif;
+    font-size: 0.95rem;
+}
+
+.warning-text strong {
+    font-weight: 600;
+}
+
+/* КАРТА */
+.map-container {
+    border: 4px solid var(--wood-warm);
+    box-shadow: var(--magic-glow);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    margin: 40px 0;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.map-container:hover {
+    transform: translateY(-5px);
+}
+
+.map-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.map-container:hover img {
+    transform: scale(1.03);
+}
+
+.map-hint {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    white-space: nowrap;
+    background: #606c38;
+    color: var(--wood-warm);
+    padding: 10px 20px;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    border: 1px solid var(--wood-warm);
+    backdrop-filter: blur(4px);
+    pointer-events: none;
+    font-family: 'MyBodyFont', sans-serif;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.map-hint i {
+    margin-right: 8px;
+}
+
+/* ПОГОДА */
+.weather-card {
+    background: linear-gradient(135deg, #fefae0, #fdf8e4);
+    border: 3px solid var(--wood-warm);
+    margin: 60px 0 40px;
+    padding: 35px 30px;
+    border-radius: 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--magic-glow);
+}
+
+.weather-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    font-family: 'MyHeaderFont', serif;
+    font-size: 1.4rem;
+    color: var(--forest-deep);
+}
+
+.weather-badge {
+    font-size: 0.8rem;
+    background: rgba(201, 162, 91, 0.15);
+    padding: 4px 12px;
+    border-radius: 30px;
+    border: 1px solid rgba(201, 162, 91, 0.3);
+    font-family: 'MyBodyFont', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.weather-main-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0 25px;
+}
+
+.weather-icon-sun {
+    font-size: 5rem;
+    color: #e6c889;
+    filter: drop-shadow(0 0 15px rgba(230, 200, 137, 0.6));
+}
+
+.spin-icon {
+    animation: spin 25s linear infinite;
+}
+
+.weather-temp {
+    text-align: left;
+}
+
+.temp-value {
+    font-size: 4rem;
+    line-height: 1;
+    font-weight: 400;
+    font-family: 'MyBodyFont', sans-serif;
+    color: #606c38; /* ЗДЕСЬ меняем цвет большой температуры */
+}
+
+.temp-desc {
+    font-size: 1.2rem;
+    color: var(--wood-warm);
+    font-family: 'MyBodyFont', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.weather-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    border-top: 2px dashed var(--wood-warm);
+    padding-top: 25px;
+    margin-top: 10px;
+}
+
+.weather-col {
+    text-align: center;
+}
+
+.weather-border {
+    border-left: 2px solid rgba(201, 162, 91, 0.2);
+    border-right: 2px solid rgba(201, 162, 91, 0.2);
+}
+
+.weather-icon-water,
+.weather-icon-wind,
+.weather-icon-rain {
+    font-size: 2.5rem;
+    color: #e6c889;
+    margin-bottom: 8px;
+    display: inline-block;
+    filter: drop-shadow(0 0 5px rgba(230, 200, 137, 0.4));
+}
+
+.weather-val {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #606c38; /* ЗДЕСЬ меняем цвет маленьких цифр (вода, ветер, осадки) */
+    font-family: 'MyBodyFont', sans-serif;
+    line-height: 1.2;
+    margin-bottom: 4px;
+}
+
+.weather-label {
+    font-size: 0.8rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'MyBodyFont', sans-serif;
+}
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+/* RSVP */
+.rsvp-section { 
+    background-color: #8c9a7b; /* Мягкий пастельно-зеленый (светлее forest-deep) */
+    border-radius: 30px; 
+    padding: 80px 30px; 
+    text-align: center; 
+    margin-top: 80px; 
+    color: #fefae0; /* Кремовый */
+    border: 3px solid #d4b483; /* Мягкое золото (светлее wood-warm) */
+    box-shadow: 0 10px 30px rgba(140, 154, 123, 0.3); /* Мягкая тень в тон фона */
+}
+
+.rsvp-section h2 { 
+    color: #d4b483; /* Мягкое золото */
+    font-weight: 500;
+    text-shadow: 0 2px 10px rgba(212, 180, 131, 0.3); /* Легкое свечение */
+}
+
+.rsvp-subtitle {
+    font-size: 1.3rem; 
+    margin-bottom: 30px;
+    font-family: 'MyBodyFont', sans-serif;
+    color: #fefae0;
+    opacity: 0.9;
+}
+
+.rsvp-buttons { 
+    display: flex; 
+    justify-content: center; 
+    gap: 25px; 
+    flex-wrap: wrap; 
+    margin-top: 40px; 
+}
+
+.btn { 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 12px; 
+    padding: 18px 38px; 
+    background-color: #d4b483; /* Мягкое золото */
+    color: #4a5b3a; /* Темно-оливковый для контраста */
+    border-radius: 50px; 
+    transition: all 0.4s ease; 
+    text-transform: uppercase; 
+    border: 2px solid #d4b483; 
+    font-family: 'MyHeaderFont', serif;
+    font-size: 1.1rem;
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(212, 180, 131, 0.3); /* Легкое свечение */
+}
+
+.btn:hover { 
+    background-color: #e5c8a3; /* Еще более светлое золото при наведении */
+    color: #3a4a2a; /* Чуть темнее для контраста */
+    transform: translateY(-3px); 
+    border-color: #e5c8a3;
+    box-shadow: 0 8px 20px rgba(212, 180, 131, 0.5); /* Усиленное свечение при наведении */
+}
+
+.btn-secondary { 
+    background: transparent; 
+    color: #d4b483;
+    border: 2px solid #d4b483;
+    box-shadow: 0 4px 12px rgba(212, 180, 131, 0.2); /* Более легкое свечение */
+}
+
+.btn-secondary:hover { 
+    background: #d4b483;
+    color: #4a5b3a;
+    border-color: #d4b483;
+    box-shadow: 0 8px 20px rgba(212, 180, 131, 0.5);
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+    .rsvp-section {
+        padding: 50px 20px;
+        margin-top: 60px;
+    }
+    
+    .rsvp-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .btn {
+        padding: 14px 28px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .rsvp-section {
+        padding: 40px 15px;
+        border-radius: 20px;
+    }
+    
+    .rsvp-buttons {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 260px;
+        padding: 12px 20px;
+    }
+}
+
+/* Подвал */
+footer { 
+    text-align: center;
+    padding: 60px 20px 40px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: transparent; /* Прозрачный фон */
+    border: none; /* Убираем границу */
+}
+
+/* Логотип в подвале */
+.footer-logo {
+    width: 100px; 
+    height: auto; 
+    margin: 0 auto 20px auto;
+    display: block;
+    filter: invert(70%) sepia(50%) saturate(400%) hue-rotate(350deg) brightness(90%) contrast(90%);
+    opacity: 0.95;
+    transition: transform 0.5s ease;
+}
+
+.footer-logo:hover { 
+    filter: invert(70%) sepia(50%) saturate(400%) hue-rotate(350deg) brightness(100%) contrast(95%) drop-shadow(0 0 30px #C9A25B);
+    transform: scale(1.05);
+}
+
+.couple-names {
+    font-size: 1.5rem;
+    text-align: center; 
+    margin: 0 auto 15px auto;
+    color: var(--wood-warm);
+    width: 100%;
+    max-width: 600px;
+    line-height: 1.4;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.copyright {
+    font-size: 0.9rem;
+    text-align: center; 
+    margin: 0 auto;
+    opacity: 0.7;
+    font-family: 'MyBodyFont', sans-serif;
+    width: 100%;
+    max-width: 600px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    color: var(--forest-deep); /* Добавил цвет текста */
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+    footer {
+        padding: 40px 15px 30px;
+    }
+    
+    .footer-logo {
+        width: 80px;
+        margin-bottom: 15px;
+    }
+    
+    .couple-names {
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+    }
+    
+    .copyright {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    footer {
+        padding: 30px 10px 20px;
+    }
+    
+    .footer-logo {
+        width: 70px;
+        margin-bottom: 12px;
+    }
+    
+    .couple-names {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+    
+    .copyright {
+        font-size: 0.75rem;
+    }
+}
+/* ========== ЧТО ПОДАРИТЬ – В СТИЛЕ ПРИГЛАШЕНИЯ ========== */
+.gift-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px 50px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.gift-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.gift-paper { 
+    text-align: center; 
+    width: 100%;
+    margin: 0 auto; 
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    padding: clamp(40px, 6vw, 70px) clamp(25px, 5vw, 50px);
+    background-color: #fefae0;
+    border: 2px solid var(--wood-warm); 
+    border-radius: 24px; 
+    box-shadow: var(--magic-glow); 
+    box-sizing: border-box;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Зеленая иконка подарка */
+.gift-icon-pulse {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
+    background: var(--forest-sage);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.3rem;
+    box-shadow: 0 5px 15px rgba(96, 108, 56, 0.3);
+    animation: giftPulse 2.5s infinite ease-in-out;
+}
+
+@keyframes giftPulse {
+    0%, 100% { 
+        transform: scale(1); 
+        box-shadow: 0 5px 15px rgba(96, 108, 56, 0.3);
+    }
+    50% { 
+        transform: scale(1.08); 
+        box-shadow: 0 10px 25px rgba(96, 108, 56, 0.5);
+    }
+}
+
+/* УМЕНЬШЕННЫЙ И АДАПТИВНЫЙ ЗАГОЛОВОК */
+.gift-title-soft {
+    font-size: clamp(1.4rem, 4vw, 2rem); /* Уменьшил с 2rem-2.5rem до 1.6rem-2rem */
+    color: var(--forest-deep);
+    margin-bottom: 20px;
+    line-height: 1.2;
+    font-weight: 500;
+    font-family: 'MyHeaderFont', serif;
+}
+
+.gift-poem {
+    font-size: clamp(1rem, 3.2vw, 1.2rem); /* Немного уменьшил */
+    line-height: 1.7;
+    color: var(--text-dark);
+    margin-bottom: 25px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.gift-hint-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px; /* Уменьшил gap */
+    font-size: 1.1rem; /* Уменьшил */
+    color: var(--forest-sage);
+    margin: 0 auto 25px; /* Уменьшил нижний отступ */
+    flex-wrap: wrap;
+    font-weight: 500;
+    text-align: center;
+}
+
+.gift-hint-line i {
+    font-size: 1.3rem; /* Уменьшил */
+    color: var(--forest-sage);
+}
+
+.gift-button-wrapper {
+    margin-top: 30px; /* Уменьшил */
+    text-align: center;
+}
+
+.gift-soft-btn {
+    display: inline-block;
+    padding: 14px 32px; /* Уменьшил */
+    background: #E6D5B8;
+    color: #5C4E3D;
+    border: 1px solid var(--wood-warm);
+    border-radius: 50px;
+    font-size: 1.05rem; /* Уменьшил */
+    font-family: 'MyBodyFont', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(201, 162, 91, 0.2);
+}
+
+.gift-soft-btn:hover {
+    background: #D4B483;
+    color: #3A322A;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(201, 162, 91, 0.3);
+    border-color: #D4B483;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+    .gift-section {
+        padding: 30px 15px 40px;
+    }
+    
+    .gift-paper {
+        padding: 35px 25px;
+        border-radius: 20px;
+    }
+    
+    .gift-icon-pulse {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+    
+    .gift-title-soft {
+        font-size: 1.6rem; /* Фиксированный размер для планшетов */
+    }
+}
+
+@media (max-width: 480px) {
+    .gift-section {
+        padding: 25px 10px 35px;
+    }
+    
+    .gift-paper {
+        padding: 30px 20px;
+        border-radius: 16px;
+    }
+    
+    .gift-icon-pulse {
+        width: 60px;
+        height: 60px;
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+    }
+    
+    .gift-title-soft {
+        font-size: 1.6rem; /* Еще меньше для телефонов */
+        margin-bottom: 15px;
+    }
+    
+    .gift-poem {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+    
+    .gift-hint-line {
+        gap: 8px;
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+    
+    .gift-hint-line i {
+        font-size: 1.2rem;
+    }
+    
+    .gift-soft-btn {
+        padding: 12px 24px;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 260px;
+    }
+}
+/* Мягкая теплая кнопка */
+.gift-button-wrapper {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.gift-soft-btn {
+  display: inline-block;
+  padding: 14px 32px;
+  background: #E6D5B8; /* Мягкий песочный оттенок */
+  color: #5C4E3D; /* Теплый темно-коричневый */
+  border: none;
+  border-radius: 40px;
+  font-size: 1.1rem;
+  font-family: 'MyBodyFont', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(201, 162, 91, 0.2);
+  border: 1px solid rgba(201, 162, 91, 0.3);
+}
+
+.gift-soft-btn:hover {
+  background: #D4B483; /* Приглушенное золото */
+  color: #3A322A; /* Еще теплее */
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(201, 162, 91, 0.3);
+  border-color: rgba(201, 162, 91, 0.5);
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 480px) {
+  .gift-soft-btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 300px;
+  }
+}
+/* ========== ДРЕСС-КОД С ЦВЕТОВОЙ ПАЛИТРОЙ ========== */
+.dresscode-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px 50px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.dresscode-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.dresscode-paper {
+    text-align: center;
+    width: 100%;
+    padding: clamp(40px, 6vw, 60px) clamp(25px, 5vw, 50px);
+    background-color: #fefae0;
+    border: 2px solid var(--wood-warm);
+    border-radius: 32px;
+    box-shadow: var(--magic-glow);
+    box-sizing: border-box;
+}
+
+.dresscode-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.dresscode-icon {
+    font-size: 3.5rem;
+    color: var(--wood-warm);
+    filter: drop-shadow(0 0 10px rgba(201, 162, 91, 0.4));
+    animation: softPulse 3s infinite ease-in-out;
+}
+
+@keyframes softPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.dresscode-title {
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    color: var(--forest-deep);
+    font-family: 'MyHeaderFont', serif;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.dresscode-description {
+    font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+    color: var(--forest-sage);
+    margin-bottom: 35px;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.dresscode-palette {
+    background: rgba(201, 162, 91, 0.08);
+    border-radius: 28px;
+    padding: 30px 25px;
+    margin-bottom: 30px;
+    border: 1px dashed var(--wood-warm);
+}
+
+.palette-title {
+    font-family: 'MyHeaderFont', serif;
+    font-size: 1.3rem;
+    color: var(--forest-deep);
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+.palette-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    justify-content: center;
+}
+
+.palette-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.palette-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(201, 162, 91, 0.2);
+}
+
+.palette-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid var(--wood-warm);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.palette-item:hover .palette-circle {
+    transform: scale(1.1);
+}
+
+.palette-label {
+    font-family: 'MyBodyFont', sans-serif;
+    font-size: 0.95rem;
+    color: var(--forest-deep);
+    font-weight: 500;
+}
+
+.dresscode-note {
+    font-size: 1.1rem;
+    color: var(--forest-sage);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    font-style: italic;
+}
+
+.dresscode-note i {
+    font-size: 1.3rem;
+    color: var(--wood-warm);
+    animation: swayLeaf 4s infinite ease-in-out;
+}
+
+.dresscode-note i:first-child {
+    animation-delay: 0s;
+}
+
+.dresscode-note i:last-child {
+    animation-delay: 0.5s;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+    .dresscode-section {
+        padding: 30px 15px 40px;
+    }
+    
+    .dresscode-paper {
+        padding: 35px 25px;
+        border-radius: 28px;
+    }
+    
+    .palette-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .palette-item {
+        padding: 12px 8px;
+    }
+    
+    .palette-circle {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dresscode-section {
+        padding: 25px 10px 35px;
+    }
+    
+    .dresscode-paper {
+        padding: 30px 20px;
+        border-radius: 24px;
+    }
+    
+    .dresscode-icon {
+        font-size: 3rem;
+    }
+    
+    .palette-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .palette-item {
+        padding: 10px 5px;
+    }
+    
+    .palette-circle {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .palette-label {
+        font-size: 0.85rem;
+    }
+    
+    .dresscode-note {
+        font-size: 1rem;
+        gap: 10px;
+    }
+}
+/* ========== ИСПРАВЛЕНИЯ ДЛЯ iOS ========== */
+@supports (-webkit-touch-callout: none) {
+    /* Убираем fixed фон на всех секциях */
+    .parallax-section,
+    header,
+    .gift-section {
+        background-attachment: scroll !important;
+    }
+    
+    /* Добавляем fallback цвета */
+    .parallax-section {
+        background-color: #283618;
+    }
+    
+    .gift-section {
+        background-color: #fefae0;
+        background-image: url('../assets/img/forest-light-bg.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+    
+    header {
+        background: linear-gradient(rgba(26, 47, 37, 0.6), rgba(42, 75, 60, 0.5)), 
+                    url('../assets/img/view.jpg') center center / cover no-repeat;
+        background-attachment: scroll;
+    }
+    
+    /* Упрощаем фильтры для производительности */
+    .gift-section::before {
+        background: rgba(0, 0, 0, 0.2);
+    }
+}
+/* ========== RSVP ДЛЯ TELEGRAM ========== */
+.rsvp-choice-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.rsvp-choice-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 18px 38px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-family: 'MyHeaderFont', serif;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background: transparent;
+    width: auto;
+    min-width: 200px;
+}
+
+.yes-btn {
+    background: #d4b483;
+    color: #4a5b3a;
+    border-color: #d4b483;
+}
+
+.yes-btn:hover {
+    background: #e5c8a3;
+    color: #3a4a2a;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212, 180, 131, 0.5);
+}
+
+.no-btn {
+    background: transparent;
+    color: #d4b483;
+    border-color: #d4b483;
+}
+
+.no-btn:hover {
+    background: #d4b483;
+    color: #4a5b3a;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212, 180, 131, 0.5);
+}
+
+.telegram-success {
+    margin-top: 30px;
+    padding: 30px 25px;
+    background: rgba(0, 136, 204, 0.15);
+    border-radius: 30px;
+    border: 2px solid #0088cc;
+    animation: fadeIn 0.5s ease;
+    text-align: center;
+}
+
+.telegram-success-icon {
+    font-size: 3.5rem;
+    color: #0088cc;
+    margin-bottom: 15px;
+    animation: telegramPulse 2s infinite ease-in-out;
+}
+
+@keyframes telegramPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.telegram-success-text {
+    font-size: 1.3rem;
+    color: #fefae0;
+    margin-bottom: 10px;
+    font-family: 'MyHeaderFont', serif;
+}
+
+.telegram-success-subtext {
+    font-size: 1rem;
+    color: rgba(254, 250, 224, 0.8);
+    margin-bottom: 5px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+    .rsvp-choice-btn {
+        padding: 14px 28px;
+        font-size: 1rem;
+        min-width: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    .rsvp-choice-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .rsvp-choice-btn {
+        width: 100%;
+        max-width: 260px;
+        padding: 12px 20px;
+    }
+    
+    .telegram-success-text {
+        font-size: 1.1rem;
+    }
+    
+    .telegram-success-subtext {
+        font-size: 0.9rem;
+    }
+}
+
+#sound-control { 
+    position: fixed; 
+    bottom: 30px; 
+    right: 30px; 
+    width: 50px; 
+    height: 50px; 
+    background: var(--wood-warm); 
+    border-radius: 50%; 
+    color: var(--forest-deep); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 100; 
+}
+
+/* ВИШ-ЛИСТ */
+.wishlist-section { padding: 40px 20px; }
+.wishlist-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+.wishlist-paper {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    padding: clamp(40px, 6vw, 70px) clamp(25px, 5vw, 50px);
+    background-color: #fefae0;
+    border: 2px solid var(--wood-warm);
+    border-radius: 24px;
+    box-shadow: var(--magic-glow);
+    box-sizing: border-box;
+}
+.wishlist-header {
+    display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;
+}
+.wishlist-icon {
+    font-size: 2.5rem; color: #B08A8A; margin-bottom: 10px;
+    animation: wishlistPulse 2.5s infinite ease-in-out;
+}
+
+@keyframes wishlistPulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 5px 10px rgba(176, 138, 138, 0.3));
+    }
+    50% {
+        transform: scale(1.12);
+        filter: drop-shadow(0 10px 20px rgba(176, 138, 138, 0.5));
+    }
+}
+.wishlist-title {
+    font-size: clamp(1.6rem, 4vw, 2.5rem); color: var(--forest-deep);
+}
+.wishlist-list {
+    list-style: none; padding: 0; margin: 30px 0; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;
+}
+.wishlist-list li {
+    margin-bottom: 15px; display: flex; align-items: center; gap: 15px; color: var(--forest-deep); font-weight: 500;
+}
+.wishlist-list li i { color: var(--lightGreen); }
+
+/* ГОСТЕВАЯ КНИГА */
+.guestbook-section { padding: 40px 20px; }
+.guestbook-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+.guestbook-paper {
+    text-align: center; width: 100%; margin: 0 auto; font-size: clamp(1rem, 4vw, 1.25rem);
+    padding: clamp(40px, 6vw, 70px) clamp(25px, 5vw, 50px); background-color: #fefae0;
+    border: 2px solid var(--wood-warm); border-radius: 24px; box-shadow: var(--magic-glow); box-sizing: border-box;
+}
+.guestbook-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
+.guestbook-icon { font-size: 2.5rem; color: var(--forest-sage); margin-bottom: 10px; }
+.guestbook-title { font-size: clamp(1.6rem, 4vw, 2.5rem); color: var(--forest-deep); }
+.guestbook-form { margin-top: 30px; text-align: left; }
+.form-group { margin-bottom: 20px; }
+.form-group input[type="text"], .form-group textarea {
+    width: 100%; padding: 15px; border: 1px solid var(--wood-warm); border-radius: 12px;
+    background: rgba(255, 255, 255, 0.5); font-family: 'MyBodyFont', sans-serif; font-size: 1rem; color: var(--forest-deep);
+    transition: var(--transition); box-sizing: border-box;
+}
+.form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--forest-sage); background: white; }
+.file-upload-label {
+    display: inline-block; padding: 12px 20px; background: rgba(201, 162, 91, 0.1); border: 1px dashed var(--wood-warm);
+    border-radius: 12px; cursor: pointer; color: var(--forest-deep); transition: var(--transition); font-weight: 500;
+}
+.file-upload-label:hover { background: rgba(201, 162, 91, 0.2); }
+input[type="file"] { display: none; }
+.guestbook-submit-btn {
+    width: 100%; padding: 15px; background: var(--forest-sage); color: white; border: none; border-radius: 12px;
+    font-size: 1.1rem; cursor: pointer; transition: var(--transition); font-family: 'MyHeaderFont', serif; font-weight: 500;
+}
+.guestbook-submit-btn:hover { background: var(--forest-deep); }
+.guestbook-feed { margin-top: 40px; border-top: 1px dashed var(--wood-warm); padding-top: 30px; text-align: left; }
+.guest-message-card {
+    background: rgba(255, 255, 255, 0.7); border: 1px solid rgba(201, 162, 91, 0.3); border-radius: 16px;
+    padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+.guest-name { font-weight: bold; color: var(--forest-deep); font-size: 1.2rem; margin-bottom: 10px; font-family: 'MyHeaderFont', serif; }
+.guest-text { color: var(--text-dark); margin-bottom: 15px; line-height: 1.6; }
+.guest-media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; }
+.guest-media-grid img, .guest-media-grid video { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; cursor: pointer; }
+.file-preview { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+.file-preview img, .file-preview video { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; }
+.guestbook-status { margin-top: 15px; text-align: center; font-weight: 500; }
+.guestbook-status.success { color: var(--forest-sage); }
+.guestbook-status.error { color: #d9534f; }
+/* ДЕРЕВО ПОЖЕЛАНИЙ */
+.wishing-tree-wrapper {
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.wishing-tree-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px; /* limits tree size on large screens */
+    border-radius: 20px;
+    overflow: hidden;
+    /* The image has cream background, it blends if container doesn't have border */
+}
+
+.wishing-tree-bg {
+    width: 100%;
+    height: auto;
+    display: block;
+    pointer-events: none;
+    border-radius: 20px;
+}
+
+.wishing-tree-bg-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.wishing-tree-mask {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: var(--forest-sage); /* Оливковый цвет сайта */
+    -webkit-mask-image: url('../assets/img/pngegg.png');
+    mask-image: url('../assets/img/pngegg.png');
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    pointer-events: none;
+}
+
+/* Полароиды-листочки */
+.polaroid-leaf {
+    position: absolute;
+    width: 60px;
+    height: 70px;
+    background: #fff;
+    padding: 4px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    border-radius: 2px;
+    cursor: pointer;
+    transform-origin: top center;
+    /* Swinging animation */
+    animation: swing 6s ease-in-out infinite alternate;
+    transition: transform 0.3s ease, z-index 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+}
+
+.polaroid-leaf:hover {
+    transform: scale(1.2) rotate(0deg) !important;
+    z-index: 20;
+    animation: none;
+}
+
+/* Имитация ниточки */
+.polaroid-leaf::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    width: 1px;
+    height: 20px;
+    background: rgba(0,0,0,0.4);
+}
+
+/* "Гвоздик" или точка крепления */
+.polaroid-leaf::after {
+    content: '';
+    position: absolute;
+    top: -22px;
+    left: calc(50% - 3px);
+    width: 6px;
+    height: 6px;
+    background: #4A2C2A;
+    border-radius: 50%;
+}
+
+.polaroid-img-preview {
+    width: 100%;
+    height: 45px;
+    background-color: #ddd;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #eee;
+}
+
+.polaroid-text-preview {
+    width: 100%;
+    height: 45px;
+    background-color: #fefae0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    color: var(--forest-deep);
+    text-align: center;
+    overflow: hidden;
+    padding: 2px;
+    border: 1px solid #eee;
+}
+
+.polaroid-author {
+    font-size: 0.5rem;
+    margin-top: 4px;
+    color: #333;
+    font-weight: bold;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
+}
+
+@keyframes swing {
+    0% { transform: rotate(-5deg); }
+    100% { transform: rotate(5deg); }
+}
+
+/* Модальное окно для деталей */
+.leaf-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.leaf-modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.leaf-modal-content {
+    background: #fefae0; /* цвет бумаги */
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    border: 2px solid var(--wood-warm);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.leaf-modal.show .leaf-modal-content {
+    transform: translateY(0);
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: var(--forest-deep);
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: #d9534f;
+}
+
+/* Стилизация контента внутри модалки (переиспользуем часть стилей карточек) */
+#leaf-modal-body .guest-name {
+    font-size: 1.5rem;
+    color: var(--forest-deep);
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--wood-warm);
+    padding-bottom: 10px;
+}
+
+#leaf-modal-body .guest-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#leaf-modal-body .guest-media-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+#leaf-modal-body .guest-media-grid img,
+#leaf-modal-body .guest-media-grid video {
+    width: 100%;
+    max-width: 450px;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 12px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* ИНТЕРАКТИВНЫЙ ВИШ-ЛИСТ */
+.wishlist-dynamic-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.gift-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(86, 114, 85, 0.2); /* Очень легкая линия вместо полной рамки */
+    transition: all 0.3s ease;
+}
+
+.gift-item:last-child {
+    border-bottom: none;
+}
+
+.gift-item.claimed {
+    opacity: 0.5;
+    background: transparent;
+    border-color: transparent;
+}
+
+.gift-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    color: var(--forest-deep);
+}
+
+.gift-item.claimed .gift-info {
+    text-decoration: line-through;
+    color: #777;
+}
+
+.gift-btn {
+    background-color: var(--forest-sage);
+    color: var(--cream-paper);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Forum', serif;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.gift-btn:hover {
+    background-color: var(--forest-deep);
+}
+
+.gift-claimed-text {
+    font-size: 0.9rem;
+    color: #d9534f;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+}
