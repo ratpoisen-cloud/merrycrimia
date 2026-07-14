@@ -244,6 +244,47 @@ function initMainScripts() {
     window.addEventListener('scroll', onScrollFade, { passive: true });
     checkFadeIn();
   }
+
+  // 4. Фоновый слой (page-bg)
+  initPageBg();
+}
+
+function initPageBg() {
+  const layers = document.querySelectorAll('.page-bg-layer');
+  if (!layers.length) return;
+
+  const sections = [
+    { el: document.querySelector('header'), index: 0 },
+    { el: document.getElementById('wishlist'), index: 1 },
+    { el: document.getElementById('details'), index: 2 }
+  ];
+
+  function activateLayer(index) {
+    layers.forEach((layer, i) => {
+      layer.classList.toggle('active', i === index);
+    });
+  }
+
+  // Активируем первый слой по умолчанию
+  activateLayer(0);
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const section = sections.find(s => s.el === entry.target);
+        if (section) {
+          activateLayer(section.index);
+        }
+      }
+    });
+  }, {
+    rootMargin: '0px 0px -50% 0px',
+    threshold: 0
+  });
+
+  sections.forEach(s => {
+    if (s.el) observer.observe(s.el);
+  });
 }
 
 // ===== КУРСОР И ЛИСТЬЯ (МОБИЛЬНАЯ ОПТИМИЗАЦИЯ) =====

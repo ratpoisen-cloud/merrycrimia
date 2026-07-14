@@ -499,6 +499,36 @@ h2 {
         height: 30px;
     }
 }
+/* Фоновый слой страницы (page-bg) */
+#page-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+.page-bg-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+}
+.page-bg-layer.active {
+    opacity: 1;
+}
+#main-page {
+    position: relative;
+    z-index: 1;
+}
+
 /* Шапка и герой */
 header {
     min-height: 100vh; 
@@ -506,9 +536,7 @@ header {
     display: flex; 
     align-items: center; 
     justify-content: center;
-    background: linear-gradient(rgba(26, 47, 37, 0.5), rgba(42, 75, 60, 0.4)), 
-                url('../assets/img/335687@2x.webp') center center / cover no-repeat;
-    background-attachment: fixed; 
+    background: linear-gradient(rgba(26, 47, 37, 0.5), rgba(42, 75, 60, 0.4));
     text-align: center;
 
 }
@@ -978,7 +1006,6 @@ section {
     z-index: 1;
 }
 
-.bg-forest { background-image: url('../assets/img/forest-bg.jpg'); }
 .bg-mountains { background-image: url('../assets/img/mountains-bg.jpg'); }
 
 /* FAQ */
@@ -1546,11 +1573,6 @@ footer {
     box-sizing: border-box;
 }
 .wishlist-section.bg-wishlist {
-    background-image: url('../assets/img/337966@2x.webp');
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
     position: relative;
     max-width: none !important;
     width: 100vw;
@@ -2001,18 +2023,6 @@ footer {
 }
 /* ========== ИСПРАВЛЕНИЯ ДЛЯ iOS ========== */
 @supports (-webkit-touch-callout: none) {
-    /* Убираем fixed фон на всех секциях */
-    .parallax-section,
-    header,
-    .gift-section {
-        background-attachment: scroll !important;
-    }
-    
-    /* Добавляем fallback цвета */
-    .parallax-section {
-        background-color: #283618;
-    }
-    
     .gift-section {
         background-color: #fefae0;
         background-image: url('../assets/img/forest-light-bg.jpg');
@@ -2021,9 +2031,7 @@ footer {
     }
     
     header {
-        background: linear-gradient(rgba(26, 47, 37, 0.6), rgba(42, 75, 60, 0.5)), 
-                    url('../assets/img/335687@2x.webp') center center / cover no-repeat;
-        background-attachment: scroll;
+        background: linear-gradient(rgba(26, 47, 37, 0.6), rgba(42, 75, 60, 0.5));
     }
     
     /* Упрощаем фильтры для производительности */
