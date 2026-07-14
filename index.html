@@ -33,15 +33,15 @@
     <div class="corner-decor bottom-left"></div>
     <div class="corner-decor bottom-right"></div>
     
-    <div class="entry-tree-btn" id="entry-tree-btn"></div>
-    
     <div class="entry-fireflies" id="entry-fireflies"></div>
 
-    <div class="entry-text-container">
-      <h1 class="entry-title entry-fade-in entry-delay-1">Приглашение</h1>
-      <p class="entry-subtitle entry-fade-in entry-delay-2">
-        Коснитесь Древа, чтобы войти
-      </p>
+    <div class="entry-center-group">
+      <div class="entry-tree-btn" id="entry-tree-btn"></div>
+      <div class="entry-nav-row">
+        <div class="entry-nav-item entry-fade-in entry-delay-1" data-target="gift">Подарки</div>
+        <div class="entry-nav-item entry-fade-in entry-delay-2" data-target="details" id="ceremony-item">Церемония</div>
+        <div class="entry-nav-item entry-fade-in entry-delay-3" data-target="guestbook">Пожелания</div>
+      </div>
     </div>
 
     <div id="entry-cursor"><i class="fas fa-leaf"></i></div>
@@ -107,7 +107,8 @@
 </section>
 
 <!-- ВИШ-ЛИСТ -->
-<section class="wishlist-section fade-in" id="wishlist">
+<section class="wishlist-section bg-wishlist fade-in" id="wishlist">
+  <div class="overlay-dark"></div>
   <div class="wishlist-container">
     <div class="wishlist-paper">
       <div class="wishlist-header">
@@ -184,7 +185,7 @@
   </div>
 </section>
     <!-- Детали -->
-    <section class="parallax-section bg-forest">
+    <section class="parallax-section bg-forest" id="details">
       <div class="overlay-dark"></div>
       
       <div class="parallax-inner">
@@ -212,7 +213,7 @@
     </section>
     
      <!-- ДРЕСС-КОД И ЦВЕТОВАЯ ПАЛИТРА -->
-<section class="dresscode-section fade-in">
+<section class="dresscode-section fade-in" id="dresscode">
   <div class="dresscode-container">
     <div class="dresscode-paper">
       <div class="dresscode-header">
@@ -276,7 +277,7 @@
      <!-- ЛОКАЦИЯ -->
       <h2 style="font-size: 2.5rem; margin-bottom: 25px; color: var(--forest-deep);">Локация</h2>
 
-      <div class="map-container fade-in" style="margin-top: 0px; position: relative; cursor: pointer;" onclick="window.open('https://yandex.ru/maps/-/CPAObFmg', '_blank')">
+      <div class="map-container fade-in" id="map" style="margin-top: 0px; position: relative; cursor: pointer;" onclick="window.open('https://yandex.ru/maps/-/CPAObFmg', '_blank')">
         <img src="assets/img/fantasy-map.jpg" alt="Карта" style="width: 100%; height: auto; display: block;" loading="lazy" decoding="async">
         <div style="position: absolute; bottom: 20px; left: 0; width: 100%; text-align: center; pointer-events: none;">
           <span style="background: rgba(42, 75, 60, 0.8); color: var(--wood-warm); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--wood-warm);">
@@ -286,38 +287,42 @@
       </div>
 
 <!-- ПОГОДА -->
-<div class="weather-card fade-in">
-  <div class="weather-header">
-    <span id="weather-title">Ялта • Сейчас</span>
-    <span class="weather-badge" id="weather-badge">Прогноз</span>
-  </div>
-  
-  <div class="weather-main-row">
-    <i class="fas fa-sun weather-icon-sun" id="weather-icon"></i>
-    <div class="weather-temp">
-      <div class="temp-value" id="weather-temp-main">...</div>
-      <div class="temp-desc" id="weather-desc">Загрузка</div>
+<section class="weather-section fade-in" id="weather">
+  <div class="weather-container">
+    <div class="weather-card">
+      <div class="weather-header">
+        <span id="weather-title">Ялта • Сейчас</span>
+        <span class="weather-badge" id="weather-badge">Прогноз</span>
+      </div>
+      
+      <div class="weather-main-row">
+        <i class="fas fa-sun weather-icon-sun" id="weather-icon"></i>
+        <div class="weather-temp">
+          <div class="temp-value" id="weather-temp-main">...</div>
+          <div class="temp-desc" id="weather-desc">Загрузка</div>
+        </div>
+      </div>
+      
+      <div class="weather-grid">
+        <div class="weather-col">
+          <i class="fas fa-water weather-icon-water"></i>
+          <div class="weather-val" id="weather-water">24°C</div>
+          <div class="weather-label">Вода</div>
+        </div>
+        <div class="weather-col weather-border">
+          <i class="fas fa-wind weather-icon-wind"></i>
+          <div class="weather-val" id="weather-wind">...</div>
+          <div class="weather-label">Ветер</div>
+        </div>
+        <div class="weather-col">
+          <i class="fas fa-umbrella weather-icon-rain"></i>
+          <div class="weather-val" id="weather-rain">...</div>
+          <div class="weather-label">Осадки</div>
+        </div>
+      </div>
     </div>
   </div>
-  
-  <div class="weather-grid">
-    <div class="weather-col">
-      <i class="fas fa-water weather-icon-water"></i>
-      <div class="weather-val" id="weather-water">24°C</div>
-      <div class="weather-label">Вода</div>
-    </div>
-    <div class="weather-col weather-border">
-      <i class="fas fa-wind weather-icon-wind"></i>
-      <div class="weather-val" id="weather-wind">...</div>
-      <div class="weather-label">Ветер</div>
-    </div>
-    <div class="weather-col">
-      <i class="fas fa-umbrella weather-icon-rain"></i>
-      <div class="weather-val" id="weather-rain">...</div>
-      <div class="weather-label">Осадки</div>
-    </div>
-  </div>
-</div>
+</section>
 
 
   <script src="js/script.js"></script>

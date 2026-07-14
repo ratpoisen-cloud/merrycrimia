@@ -246,133 +246,78 @@ h2 {
     filter: invert(70%) sepia(50%) saturate(400%) hue-rotate(350deg) brightness(100%) contrast(95%) drop-shadow(0 0 30px #C9A25B);
     
 }
-/* Текст на странице входа */
-.entry-text-container { 
+/* Навигация на странице входа */
+.entry-center-group {
     position: absolute;
-    bottom: 15%; /* Увеличили с 10% до 15% */
-    left: 0;
-    width: 100%;
-    text-align: center;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     z-index: 20;
-    pointer-events: none; 
-    padding: 0 20px;
-    box-sizing: border-box;
+}
+.entry-center-group .entry-tree-btn {
+    position: static;
+    transform: none;
+    pointer-events: auto;
+}
+.entry-center-group .entry-tree-btn:hover {
+    transform: scale(1.05) !important;
+    filter: invert(70%) sepia(50%) saturate(400%) hue-rotate(350deg) brightness(100%) contrast(95%) drop-shadow(0 0 30px #C9A25B) !important;
+}
+@media (orientation: portrait) {
+    .entry-center-group {
+        top: 45%;
+    }
 }
 
-.entry-title { 
-    font-size: clamp(1.8rem, 6vw, 2.8rem);
-    margin-bottom: 10px;
+.entry-nav-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2vw;
+    margin-top: 40px;
+}
+
+.entry-nav-item {
+    font-family: 'MyHeaderFont', serif;
+    font-size: clamp(1.2rem, 3.5vw, 1.8rem);
     color: #C9A25B;
     line-height: 1.2;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    word-wrap: break-word;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+.entry-nav-item:hover,
+.entry-nav-item.hover-active {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 20px #C9A25B);
+}
+.entry-tree-btn.hover-active {
+    transform: scale(1.05) !important;
+    filter: invert(70%) sepia(50%) saturate(400%) hue-rotate(350deg) brightness(100%) contrast(95%) drop-shadow(0 0 30px #C9A25B) !important;
 }
 
-.entry-subtitle { 
-    font-family: 'MyBodyFont', sans-serif; 
-    font-size: clamp(0.8rem, 3vw, 1.1rem);
-    color: #C9A25B; 
-    opacity: 0.9;
-    font-weight: 400; 
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.5;
-    word-wrap: break-word;
-}
-
-/* Адаптация для разных устройств - текст поднят выше */
-@media (max-width: 1024px) {
-    .entry-text-container {
-        bottom: 12%; /* Увеличили с 8% до 12% */
+@media (max-width: 640px) {
+    .entry-nav-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
     }
-    
-    .entry-title {
-        max-width: 800px;
+    .entry-nav-item {
+        font-size: clamp(1rem, 4vw, 1.5rem);
     }
-    
-    .entry-subtitle {
-        max-width: 600px;
-    }
-}
-
-@media (max-width: 768px) {
-    .entry-text-container {
-        bottom: 10%; /* Увеличили с 7% до 10% */
-        padding: 0 15px;
-    }
-    
-    .entry-title {
-        font-size: clamp(1.6rem, 7vw, 2.2rem);
-        margin-bottom: 8px;
-    }
-    
-    .entry-subtitle {
-        font-size: clamp(0.7rem, 3.5vw, 0.9rem);
-        letter-spacing: 1.5px;
-    }
-}
-
-@media (max-width: 480px) {
-    .entry-text-container {
-        bottom: 9%; /* Увеличили с 6% до 9% */
-        padding: 0 12px;
-    }
-    
-    .entry-title {
-        font-size: clamp(1.4rem, 7vw, 1.8rem);
-        margin-bottom: 6px;
-    }
-    
-    .entry-subtitle {
-        font-size: clamp(0.6rem, 3.5vw, 0.8rem);
-        letter-spacing: 1px;
-        max-width: 280px;
-    }
-}
-
-@media (max-width: 375px) {
-    .entry-text-container {
-        bottom: 8%; /* Увеличили с 5% до 8% */
-        padding: 0 10px;
-    }
-    
-    .entry-title {
-        font-size: clamp(1.2rem, 6vw, 1.5rem);
-        margin-bottom: 5px;
-    }
-    
-    .entry-subtitle {
-        font-size: clamp(0.55rem, 3vw, 0.7rem);
-        letter-spacing: 0.5px;
-        max-width: 240px;
-    }
-}
-
-/* Для очень больших экранов */
-@media (min-width: 1600px) {
-    .entry-text-container {
-        bottom: 18%; /* Увеличили с 12% до 18% */
-    }
-    
-    .entry-title {
-        font-size: 3.2rem;
-        max-width: 1000px;
-    }
-    
-    .entry-subtitle {
-        font-size: 1.3rem;
-        max-width: 800px;
-    }
+    .entry-nav-item:nth-child(1) { order: 1; }
+    .entry-nav-item:nth-child(2) { order: 0; }
+    .entry-nav-item:nth-child(3) { order: 2; }
 }
 
 .entry-fade-in { animation: fadeInUp 0.8s ease-out forwards; }
 .entry-delay-1 { animation-delay: 0.2s; opacity: 0; }
 .entry-delay-2 { animation-delay: 0.4s; opacity: 0; }
+.entry-delay-3 { animation-delay: 0.6s; opacity: 0; }
 
 @keyframes fadeInUp { 
     from { opacity: 0; transform: translateY(20px); } 
@@ -562,7 +507,7 @@ header {
     align-items: center; 
     justify-content: center;
     background: linear-gradient(rgba(26, 47, 37, 0.5), rgba(42, 75, 60, 0.4)), 
-                url('../assets/img/view.jpg') center center / cover no-repeat;
+                url('../assets/img/335687@2x.webp') center center / cover no-repeat;
     background-attachment: fixed; 
     text-align: center;
 
@@ -1252,18 +1197,31 @@ section {
 }
 
 /* ПОГОДА */
+.weather-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px 50px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+.weather-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
 .weather-card {
     background: linear-gradient(135deg, #fefae0, #fdf8e4);
     border: 3px solid var(--wood-warm);
-    margin: 60px 0 40px;
-    padding: 35px 30px;
-    border-radius: 30px;
+    padding: clamp(35px, 5vw, 55px) clamp(20px, 4vw, 40px);
+    border-radius: 32px;
     text-align: center;
     position: relative;
     overflow: hidden;
     box-shadow: var(--magic-glow);
 }
-
 .weather-header {
     display: flex;
     align-items: center;
@@ -1587,6 +1545,35 @@ footer {
     margin: 0 auto;
     box-sizing: border-box;
 }
+.wishlist-section.bg-wishlist {
+    background-image: url('../assets/img/337966@2x.webp');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    max-width: none !important;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: 90px 0;
+}
+.wishlist-section.bg-wishlist .overlay-dark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1;
+}
+.wishlist-section.bg-wishlist .wishlist-container {
+    position: relative;
+    z-index: 2;
+    padding: 0 20px;
+}
 
 .gift-container {
     max-width: 800px;
@@ -1600,10 +1587,10 @@ footer {
     width: 100%;
     margin: 0 auto; 
     font-size: clamp(1rem, 4vw, 1.25rem);
-    padding: clamp(40px, 6vw, 70px) clamp(25px, 5vw, 50px);
+    padding: clamp(35px, 5vw, 55px) clamp(20px, 4vw, 40px);
     background-color: #fefae0;
     border: 2px solid var(--wood-warm); 
-    border-radius: 24px; 
+    border-radius: 32px; 
     box-shadow: var(--magic-glow); 
     box-sizing: border-box;
     word-wrap: break-word;
@@ -1706,65 +1693,69 @@ footer {
     border-color: #D4B483;
 }
 
-/* Адаптация для мобильных */
+/* ===== ЕДИНЫЕ АДАПТИВНЫЕ ОТСТУПЫ ПО СТАНДАРТУ ДРЕСС-КОД ===== */
 @media (max-width: 768px) {
-    .gift-section {
+    .gift-section:not(.bg-wishlist),
+    .guestbook-section,
+    .dresscode-section,
+    .weather-section {
         padding: 30px 15px 40px;
     }
-    
-    .gift-paper {
+    .gift-paper,
+    .wishlist-paper,
+    .guestbook-paper,
+    .dresscode-paper,
+    .weather-card {
         padding: 35px 25px;
-        border-radius: 20px;
+        border-radius: 28px;
     }
-    
     .gift-icon-pulse {
         width: 70px;
         height: 70px;
         font-size: 2rem;
     }
-    
     .gift-title-soft {
-        font-size: 1.6rem; /* Фиксированный размер для планшетов */
+        font-size: 1.6rem;
     }
 }
 
 @media (max-width: 480px) {
-    .gift-section {
+    .gift-section:not(.bg-wishlist),
+    .guestbook-section,
+    .dresscode-section,
+    .weather-section {
         padding: 25px 10px 35px;
     }
-    
-    .gift-paper {
+    .gift-paper,
+    .wishlist-paper,
+    .guestbook-paper,
+    .dresscode-paper,
+    .weather-card {
         padding: 30px 20px;
-        border-radius: 16px;
+        border-radius: 24px;
     }
-    
     .gift-icon-pulse {
         width: 60px;
         height: 60px;
         font-size: 1.6rem;
         margin-bottom: 20px;
     }
-    
     .gift-title-soft {
-        font-size: 1.6rem; /* Еще меньше для телефонов */
+        font-size: 1.6rem;
         margin-bottom: 15px;
     }
-    
     .gift-poem {
         font-size: 1rem;
         margin-bottom: 20px;
     }
-    
     .gift-hint-line {
         gap: 8px;
         font-size: 1rem;
         margin-bottom: 20px;
     }
-    
     .gift-hint-line i {
         font-size: 1.2rem;
     }
-    
     .gift-soft-btn {
         padding: 12px 24px;
         font-size: 1rem;
@@ -1834,7 +1825,7 @@ footer {
 .dresscode-paper {
     text-align: center;
     width: 100%;
-    padding: clamp(40px, 6vw, 60px) clamp(25px, 5vw, 50px);
+    padding: clamp(35px, 5vw, 55px) clamp(20px, 4vw, 40px);
     background-color: #fefae0;
     border: 2px solid var(--wood-warm);
     border-radius: 32px;
@@ -1965,15 +1956,6 @@ footer {
 
 /* Адаптация для мобильных */
 @media (max-width: 768px) {
-    .dresscode-section {
-        padding: 30px 15px 40px;
-    }
-    
-    .dresscode-paper {
-        padding: 35px 25px;
-        border-radius: 28px;
-    }
-    
     .palette-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
@@ -1990,15 +1972,6 @@ footer {
 }
 
 @media (max-width: 480px) {
-    .dresscode-section {
-        padding: 25px 10px 35px;
-    }
-    
-    .dresscode-paper {
-        padding: 30px 20px;
-        border-radius: 24px;
-    }
-    
     .dresscode-icon {
         font-size: 3rem;
     }
@@ -2049,7 +2022,7 @@ footer {
     
     header {
         background: linear-gradient(rgba(26, 47, 37, 0.6), rgba(42, 75, 60, 0.5)), 
-                    url('../assets/img/view.jpg') center center / cover no-repeat;
+                    url('../assets/img/335687@2x.webp') center center / cover no-repeat;
         background-attachment: scroll;
     }
     
@@ -2206,17 +2179,17 @@ footer {
 }
 
 /* ВИШ-ЛИСТ */
-.wishlist-section { padding: 40px 20px; }
-.wishlist-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+.wishlist-section { padding: 40px 20px 50px; }
+.wishlist-container { max-width: 800px; margin: 0 auto; }
 .wishlist-paper {
     text-align: center;
     width: 100%;
     margin: 0 auto;
     font-size: clamp(1rem, 4vw, 1.25rem);
-    padding: clamp(40px, 6vw, 70px) clamp(25px, 5vw, 50px);
+    padding: clamp(35px, 5vw, 55px) clamp(20px, 4vw, 40px);
     background-color: #fefae0;
     border: 2px solid var(--wood-warm);
-    border-radius: 24px;
+    border-radius: 32px;
     box-shadow: var(--magic-glow);
     box-sizing: border-box;
 }
@@ -2250,12 +2223,12 @@ footer {
 .wishlist-list li i { color: var(--lightGreen); }
 
 /* ГОСТЕВАЯ КНИГА */
-.guestbook-section { padding: 40px 20px; }
-.guestbook-container { max-width: 800px; margin: 0 auto; padding: 20px; }
+.guestbook-section { padding: 40px 20px 50px; }
+.guestbook-container { max-width: 800px; margin: 0 auto; }
 .guestbook-paper {
     text-align: center; width: 100%; margin: 0 auto; font-size: clamp(1rem, 4vw, 1.25rem);
-    padding: clamp(40px, 6vw, 70px) clamp(25px, 5vw, 50px); background-color: #fefae0;
-    border: 2px solid var(--wood-warm); border-radius: 24px; box-shadow: var(--magic-glow); box-sizing: border-box;
+    padding: clamp(35px, 5vw, 55px) clamp(20px, 4vw, 40px); background-color: #fefae0;
+    border: 2px solid var(--wood-warm); border-radius: 32px; box-shadow: var(--magic-glow); box-sizing: border-box;
 }
 .guestbook-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
 .guestbook-icon { font-size: 2.5rem; color: var(--forest-sage); margin-bottom: 10px; }

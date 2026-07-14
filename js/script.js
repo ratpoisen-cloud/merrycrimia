@@ -33,7 +33,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const treeBtn = entryTreeBtn;
 
   if (treeBtn) {
-    treeBtn.addEventListener('click', enterMainSite);
+    treeBtn.addEventListener('click', () => enterMainSite());
+  }
+
+  // Клики по навигационным словам
+  document.querySelectorAll('.entry-nav-item').forEach(item => {
+    item.addEventListener('click', function() {
+      const target = this.dataset.target || 'details';
+      enterMainSite(() => {
+        setTimeout(() => {
+          const el = document.getElementById(target);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 200);
+      });
+    });
+  });
+
+  // Связанный ховер: дерево + Церемония
+  const treeBtnEl = document.getElementById('entry-tree-btn');
+  const ceremonyItem = document.getElementById('ceremony-item');
+  if (treeBtnEl && ceremonyItem) {
+    treeBtnEl.addEventListener('mouseenter', () => ceremonyItem.classList.add('hover-active'));
+    treeBtnEl.addEventListener('mouseleave', () => ceremonyItem.classList.remove('hover-active'));
+    ceremonyItem.addEventListener('mouseenter', () => treeBtnEl.classList.add('hover-active'));
+    ceremonyItem.addEventListener('mouseleave', () => treeBtnEl.classList.remove('hover-active'));
   }
 
   // Доступность (Enter/Space)
@@ -43,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  function enterMainSite() {
+  function enterMainSite(callback) {
     // Анимация музыки удалена
 
     // 2. Анимация исчезновения входа
@@ -52,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Анимация дерева при клике (увеличение и исчезновение)
     if (treeBtn) {
-      treeBtn.style.transform = 'translate(-50%, -50%) scale(3)';
+      treeBtn.style.transform = 'scale(3)';
       treeBtn.style.opacity = '0';
     }
 
@@ -64,7 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // Запуск логики главной страницы
       initMainScripts();
 
-      // Music icon update removed
+      // Callback после входа
+      if (typeof callback === 'function') callback();
     }, 800);
   }
 
