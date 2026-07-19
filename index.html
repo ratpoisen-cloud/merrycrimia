@@ -16,7 +16,8 @@
   <link rel="preload" href="assets/fonts/body-font.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/text-font.woff2" as="font" type="font/woff2" crossorigin>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
   
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -49,11 +50,7 @@
   </div>
 
 
-  <div id="page-bg">
-    <div class="page-bg-layer active" style="background-image: url('assets/img/aivazovsky.jpg');"></div>
-    <div class="page-bg-layer" style="background-image: url('assets/img/337966@2x.webp');"></div>
-    <div class="page-bg-layer page-bg-overlay"></div>
-  </div>
+  <div id="page-bg"></div>
 
   <div id="main-page" style="display: none;">
     

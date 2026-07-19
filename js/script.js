@@ -119,6 +119,24 @@ function initEntryFireflies() {
 
 // ===== СКРИПТЫ ГЛАВНОЙ СТРАНИЦЫ =====
 function initMainScripts() {
+  // 0. Создание фоновых слоёв (ленивая загрузка)
+  const pageBg = document.getElementById('page-bg');
+  if (pageBg) {
+    const layers = [
+      'url("assets/img/aivazovsky.jpg")',
+      'url("assets/img/337966@2x.webp")'
+    ];
+    layers.forEach((img, i) => {
+      const layer = document.createElement('div');
+      layer.className = 'page-bg-layer' + (i === 0 ? ' active' : '');
+      layer.style.backgroundImage = img;
+      pageBg.appendChild(layer);
+    });
+    const overlay = document.createElement('div');
+    overlay.className = 'page-bg-layer page-bg-overlay';
+    pageBg.appendChild(overlay);
+  }
+
   // 1. Светлячки (основные)
   const container = document.getElementById('fireflies-container');
   const firefliesCount = prefersReducedMotion ? 18 : (isMobile ? 24 : 40);
