@@ -255,7 +255,7 @@ h2 {
 }
 .entry-center-group {
     position: absolute;
-    top: 40%;
+    top: 65%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -274,7 +274,7 @@ h2 {
 }
 @media (orientation: portrait) {
     .entry-center-group {
-        top: 45%;
+        top: 70%;
     }
 }
 
