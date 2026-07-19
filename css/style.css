@@ -1925,6 +1925,15 @@ footer {
   color: #C9A25B;
 }
 
+.wishlist-leaf-divider {
+  display: flex;
+  justify-content: center;
+  margin: 4px 0 8px;
+  color: #C9A25B;
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+
 .gift-donate-link {
   text-decoration: none;
   color: inherit;
