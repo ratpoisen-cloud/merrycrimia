@@ -2651,17 +2651,17 @@ input[type="file"] { display: none; }
 }
 
 .leaf-modal-content {
-    background: #fefae0; /* цвет бумаги */
+    background: #fefae0;
     padding: 30px;
     border-radius: 12px;
-    max-width: 500px;
-    width: 90%;
+    max-width: 800px;
+    width: 95%;
     position: relative;
     box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     border: 2px solid var(--wood-warm);
     transform: translateY(20px);
     transition: transform 0.3s ease;
-    max-height: 80vh;
+    max-height: 90vh;
     overflow-y: auto;
 }
 
@@ -2709,8 +2709,8 @@ input[type="file"] { display: none; }
 #leaf-modal-body .guest-media-grid img,
 #leaf-modal-body .guest-media-grid video {
     width: 100%;
-    max-width: 450px;
-    max-height: 500px;
+    max-width: 720px;
+    max-height: 80vh;
     object-fit: contain;
     border-radius: 12px;
     margin: 0 auto;
