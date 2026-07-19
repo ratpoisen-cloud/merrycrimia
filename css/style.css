@@ -156,14 +156,17 @@ h2 {
     position: absolute; 
     width: 350px; 
     height: 350px; 
-    background-image: url('../assets/img/corner.png'); 
-    background-size: contain; 
-    background-repeat: no-repeat;
-    background-position: contain;
+    background-color: #C9A25B;
+    -webkit-mask-image: url('../assets/img/corner.png');
+    mask-image: url('../assets/img/corner.png');
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
     pointer-events: none; 
     z-index: 3;
-    /* Золотой цвет #C9A25B */
-    filter: invert(69%) sepia(18%) saturate(705%) hue-rotate(7deg) brightness(100%) contrast(95%);
     opacity: 1;
 }
 
@@ -216,7 +219,7 @@ h2 {
         height: 120px !important;
     }
 }
-/* ДЕРЕВО-КНОПКА - исправлено для черных PNG */
+/* ДЕРЕВО-КНОПКА */
 .entry-tree-btn {
     position: absolute;
     top: 40%; 
@@ -224,15 +227,18 @@ h2 {
     transform: translate(-50%, -50%);
     width: 55vmin; 
     height: 55vmin;
-    background-image: url('../assets/img/yggdrasil-lg.png');
-    background-size: contain; 
-    background-repeat: no-repeat; 
-    background-position: center;
+    background-color: #C9A25B;
+    -webkit-mask-image: url('../assets/img/yggdrasil-lg.png');
+    mask-image: url('../assets/img/yggdrasil-lg.png');
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
     z-index: 10;
     cursor: pointer;
     transition: all 0.8s ease;
-    /* Золотой цвет #C9A25B */
-    filter: invert(69%) sepia(18%) saturate(705%) hue-rotate(7deg) brightness(100%) contrast(95%);
     opacity: 1;
 }
 @media (orientation: portrait) {
@@ -242,7 +248,7 @@ h2 {
 }
 .entry-tree-btn:hover {
     transform: translate(-50%, -50%) scale(1.05);
-    filter: invert(69%) sepia(18%) saturate(705%) hue-rotate(7deg) brightness(100%) contrast(95%) drop-shadow(0 0 30px rgba(201, 162, 91, 0.5));
+    filter: drop-shadow(0 0 30px rgba(201, 162, 91, 0.5));
     
 }
 .entry-center-group {
@@ -262,7 +268,7 @@ h2 {
 }
 .entry-center-group .entry-tree-btn:hover {
     transform: scale(1.05) !important;
-    filter: invert(69%) sepia(18%) saturate(705%) hue-rotate(7deg) brightness(100%) contrast(95%) drop-shadow(0 0 30px rgba(201, 162, 91, 0.5)) !important;
+    filter: drop-shadow(0 0 30px rgba(201, 162, 91, 0.5)) !important;
 }
 @media (orientation: portrait) {
     .entry-center-group {
@@ -296,7 +302,7 @@ h2 {
 }
 .entry-tree-btn.hover-active {
     transform: scale(1.05) !important;
-    filter: invert(69%) sepia(18%) saturate(705%) hue-rotate(7deg) brightness(100%) contrast(95%) drop-shadow(0 0 30px rgba(201, 162, 91, 0.5)) !important;
+    filter: drop-shadow(0 0 30px rgba(201, 162, 91, 0.5)) !important;
 }
 
 @media (max-width: 640px) {
