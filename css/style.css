@@ -61,8 +61,10 @@ body {
 }
 
 /* Кастомный курсор (только ПК) */
-body, a, button, .btn, .map-container, .faq-question, #sound-control, input, label {
-    cursor: none !important;
+@media (pointer: fine) {
+    body, a, button, .btn, .map-container, .faq-question, #sound-control, input, label {
+        cursor: none !important;
+    }
 }
 
 #custom-cursor, #entry-cursor {

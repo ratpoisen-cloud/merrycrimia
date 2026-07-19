@@ -337,6 +337,11 @@ function initPageBg() {
 const cursor = document.getElementById('custom-cursor');
 const entryCursor = document.getElementById('entry-cursor');
 
+if (isMobile) {
+  if (cursor) cursor.style.display = 'none';
+  if (entryCursor) entryCursor.style.display = 'none';
+}
+
 let lastLeafTime = 0;
 const LEAF_INTERVAL_DESKTOP = 80;
 const LEAF_INTERVAL_MOBILE = 160;
