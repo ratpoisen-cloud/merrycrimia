@@ -1760,33 +1760,33 @@ footer {
 }
 
 .gift-button-wrapper {
-    margin-top: 30px; /* Уменьшил */
+    margin-top: 30px;
     text-align: center;
 }
 
 .gift-soft-btn {
     display: inline-block;
-    padding: 14px 32px; /* Уменьшил */
-    background: #E6D5B8;
-    color: #5C4E3D;
-    border: 1px solid var(--wood-warm);
+    padding: 14px 32px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #f7f4e8;
+    border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 50px;
-    font-size: 1.05rem; /* Уменьшил */
+    font-size: 1.05rem;
     font-family: 'MyBodyFont', sans-serif;
     font-weight: 500;
     letter-spacing: 0.5px;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(201, 162, 91, 0.2);
+    backdrop-filter: blur(5px);
 }
 
 .gift-soft-btn:hover {
-    background: #D4B483;
-    color: #3A322A;
+    background: rgba(255, 255, 255, 0.2);
+    color: #f7f4e8;
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(201, 162, 91, 0.3);
-    border-color: #D4B483;
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* ===== ЕДИНЫЕ АДАПТИВНЫЕ ОТСТУПЫ ПО СТАНДАРТУ ДРЕСС-КОД ===== */
@@ -1859,47 +1859,7 @@ footer {
         max-width: 260px;
     }
 }
-/* Мягкая теплая кнопка */
-.gift-button-wrapper {
-  margin-top: 30px;
-  text-align: center;
-}
 
-.gift-soft-btn {
-  display: inline-block;
-  padding: 14px 32px;
-  background: #E6D5B8; /* Мягкий песочный оттенок */
-  color: #5C4E3D; /* Теплый темно-коричневый */
-  border: none;
-  border-radius: 40px;
-  font-size: 1.1rem;
-  font-family: 'MyBodyFont', sans-serif;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(201, 162, 91, 0.2);
-  border: 1px solid rgba(201, 162, 91, 0.3);
-}
-
-.gift-soft-btn:hover {
-  background: #D4B483; /* Приглушенное золото */
-  color: #3A322A; /* Еще теплее */
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(201, 162, 91, 0.3);
-  border-color: rgba(201, 162, 91, 0.5);
-}
-
-/* Адаптация для мобильных */
-@media (max-width: 480px) {
-  .gift-soft-btn {
-    padding: 12px 24px;
-    font-size: 1rem;
-    width: 100%;
-    max-width: 300px;
-  }
-}
 /* ===== ВИШ-ЛИСТ (СПИСОК ПОДАРКОВ) ===== */
 .wishlist-items {
   display: flex;
