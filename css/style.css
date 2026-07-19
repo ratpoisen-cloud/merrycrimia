@@ -2507,9 +2507,6 @@ input[type="file"] { display: none; }
     position: relative;
     width: 100%;
     max-width: 900px;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 8px 32px rgba(201, 162, 91, 0.15);
 }
 
 .wishing-tree-bg {
