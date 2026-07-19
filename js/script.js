@@ -872,8 +872,9 @@ function initGiftModal() {
   let currentItem = null;
 
   items.forEach(item => {
-    item.addEventListener('click', () => {
+    item.addEventListener('click', (e) => {
       if (item.classList.contains('gifted')) return;
+      if (item.classList.contains('wishlist-link')) return;
       currentItem = item;
       nameEl.textContent = item.dataset.item;
       if (item.dataset.link) {
