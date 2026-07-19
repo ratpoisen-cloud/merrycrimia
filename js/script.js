@@ -834,9 +834,8 @@ async function loadRealWeather() {
 document.addEventListener('DOMContentLoaded', () => {
     loadRealWeather();
     initGiftModal();
+    initAdmin();
 });
-
-// ===== МОДАЛКА ПОДАРКА =====
 function initGiftModal() {
   const items = document.querySelectorAll('.wishlist-item');
   const modal = document.getElementById('gift-modal');
@@ -882,3 +881,76 @@ function initGiftModal() {
     if (e.target === modal) closeModal();
   });
 }
+
+// ===== АДМИНКА =====
+function initAdmin() {
+  const btn = document.getElementById('admin-btn');
+  const modal = document.getElementById('admin-modal');
+  const close = document.getElementById('admin-modal-close');
+  const submit = document.getElementById('admin-submit');
+  const keyInput = document.getElementById('admin-key');
+  const errorEl = document.getElementById('admin-error');
+  const listEl = document.getElementById('admin-list');
+
+  btn.addEventListener('click', () => {
+    modal.classList.add('show');
+    errorEl.textContent = '';
+    listEl.innerHTML = '';
+    keyInput.value = '';
+  });
+
+  close.addEventListener('click', () => modal.classList.remove('show'));
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.remove('show');
+  });
+
+  submit.addEventListener('click', () => {
+    const key = keyInput.value.trim();
+    if (!key) {
+      errorEl.textContent = 'Введите ключ доступа';
+      return;
+    }
+    listEl.innerHTML = '<p style="text-align:center;color:#666;">Загрузка...</p>';
+    fetch('api/get_messages.php')
+      .then(res => res.json())
+      .then(messages => {
+        if (!messages.length) {
+          listEl.innerHTML = '<p style="text-align:center;color:#666;">Нет сообщений</p>';
+          return;
+        }
+        listEl.innerHTML = messages.map(msg => `
+          <div class="admin-msg-card" data-id="${msg.id}">
+            <div class="admin-msg-info">
+              <strong>${msg.name}</strong> · ${new Date(msg.timestamp * 1000).toLocaleDateString()}<br>
+              ${msg.text}
+            </div>
+            <button class="admin-del-btn" onclick="adminDelete('${msg.id}', '${key}')">Удалить</button>
+          </div>
+        `).join('');
+        errorEl.textContent = '';
+      })
+      .catch(() => {
+        listEl.innerHTML = '';
+        errorEl.textContent = 'Ошибка загрузки сообщений';
+      });
+  });
+}
+
+window.adminDelete = function(id, key) {
+  if (!confirm('Удалить это сообщение?')) return;
+  const formData = new FormData();
+  formData.append('id', id);
+  formData.append('key', key);
+  fetch('api/delete_message.php', { method: 'POST', body: formData })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        const card = document.querySelector(`.admin-msg-card[data-id="${id}"]`);
+        if (card) card.remove();
+        loadGuestbookMessages();
+      } else {
+        alert(data.error || 'Ошибка удаления');
+      }
+    })
+    .catch(() => alert('Ошибка соединения'));
+};
