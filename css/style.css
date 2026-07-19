@@ -1925,35 +1925,6 @@ footer {
   color: #C9A25B;
 }
 
-.gift-donate-link {
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  justify-content: center;
-  border-color: rgba(201, 162, 91, 0.4);
-  background: linear-gradient(135deg, rgba(201, 162, 91, 0.15), rgba(201, 162, 91, 0.05));
-}
-
-.gift-donate-link:hover {
-  background: linear-gradient(135deg, rgba(201, 162, 91, 0.25), rgba(201, 162, 91, 0.15));
-  transform: translateY(-2px);
-  border-color: rgba(201, 162, 91, 0.7);
-}
-
-.gift-donate-link .wishlist-item-name {
-  color: #C9A25B;
-  font-weight: 600;
-}
-
-.gift-donate-link::before {
-  content: '\f0f6';
-  font-family: 'Font Awesome 6 Free';
-  font-weight: 900;
-  margin-right: 10px;
-  font-size: 1.1rem;
-  color: #C9A25B;
-}
-
 .wishlist-item-name {
   font-size: clamp(0.95rem, 3vw, 1.1rem);
   color: #f7f4e8;
