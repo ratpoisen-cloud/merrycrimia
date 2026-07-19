@@ -77,7 +77,7 @@ body, a, button, .btn, .map-container, .faq-question, #sound-control, input, lab
     font-size: 24px;
     transform: translate(-50%, -50%) rotate(-20deg);
     transition: transform 0.15s ease, color 0.3s ease;
-    filter: drop-shadow(0 0 5px rgba(201, 162, 91, 0.6));
+    filter: drop-shadow(0 0 5px rgba(201, 162, 91, 0.5));
     display: flex; 
     align-items: center; 
     justify-content: center;
@@ -118,7 +118,7 @@ h2 {
     left: 0; 
     width: 100%; 
     height: 100%;
-    background: #283618; 
+    background: url('../assets/img/forest-bg.jpg') center/cover no-repeat;
     color: #e8f5e9;
     overflow: hidden; 
     z-index: 10000; 
@@ -128,14 +128,14 @@ h2 {
     transition: opacity 1s ease;
 }
 
-/* Фон и текстура */
+/* Тёмная кремовая маска поверх фона */
 .entry-bg-pastel {
     position: absolute; 
     top: 0; 
     left: 0; 
     width: 100%; 
     height: 100%;
-    background-color: #fefae0;
+    background: rgba(42, 35, 25, 0.55);
     z-index: 1; 
 }
 
@@ -162,9 +162,9 @@ h2 {
     background-position: contain;
     pointer-events: none; 
     z-index: 3;
-    /* Специально для черных PNG - получаем #606C38 */
-    filter: invert(45%) sepia(50%) saturate(350%) hue-rotate(52deg) brightness(85%) contrast(95%);
-    opacity: 0.9; 
+    /* Золотой цвет #C9A25B */
+    filter: invert(69%) sepia(18%) saturate(705%) hue-rotate(7deg) brightness(100%) contrast(95%);
+    opacity: 1;
 }
 
 /* Левый верхний угол */
@@ -231,22 +231,20 @@ h2 {
     z-index: 10;
     cursor: pointer;
     transition: all 0.8s ease;
-    /* Фильтр для цвета #C9A25B */
-    filter: invert(70%) sepia(50%) saturate(400%) hue-rotate(350deg) brightness(90%) contrast(90%);
-    opacity: 0.95;
+    /* Золотой цвет #C9A25B */
+    filter: invert(69%) sepia(18%) saturate(705%) hue-rotate(7deg) brightness(100%) contrast(95%);
+    opacity: 1;
 }
 @media (orientation: portrait) {
     .entry-tree-btn {
-        top: 60%; /* Опускаем ниже */
+        top: 60%;
     }
 }
 .entry-tree-btn:hover {
     transform: translate(-50%, -50%) scale(1.05);
-    /* Сохраняем цвет и добавляем свечение */
-    filter: invert(70%) sepia(50%) saturate(400%) hue-rotate(350deg) brightness(100%) contrast(95%) drop-shadow(0 0 30px #C9A25B);
+    filter: invert(69%) sepia(18%) saturate(705%) hue-rotate(7deg) brightness(100%) contrast(95%) drop-shadow(0 0 30px rgba(201, 162, 91, 0.5));
     
 }
-/* Навигация на странице входа */
 .entry-center-group {
     position: absolute;
     top: 40%;
@@ -264,7 +262,7 @@ h2 {
 }
 .entry-center-group .entry-tree-btn:hover {
     transform: scale(1.05) !important;
-    filter: invert(70%) sepia(50%) saturate(400%) hue-rotate(350deg) brightness(100%) contrast(95%) drop-shadow(0 0 30px #C9A25B) !important;
+    filter: invert(69%) sepia(18%) saturate(705%) hue-rotate(7deg) brightness(100%) contrast(95%) drop-shadow(0 0 30px rgba(201, 162, 91, 0.5)) !important;
 }
 @media (orientation: portrait) {
     .entry-center-group {
@@ -289,15 +287,16 @@ h2 {
     pointer-events: auto;
     transition: all 0.3s ease;
     white-space: nowrap;
+    opacity: 1;
 }
 .entry-nav-item:hover,
 .entry-nav-item.hover-active {
     transform: scale(1.05);
-    filter: drop-shadow(0 0 20px #C9A25B);
+    filter: drop-shadow(0 0 20px rgba(201, 162, 91, 0.5));
 }
 .entry-tree-btn.hover-active {
     transform: scale(1.05) !important;
-    filter: invert(70%) sepia(50%) saturate(400%) hue-rotate(350deg) brightness(100%) contrast(95%) drop-shadow(0 0 30px #C9A25B) !important;
+    filter: invert(69%) sepia(18%) saturate(705%) hue-rotate(7deg) brightness(100%) contrast(95%) drop-shadow(0 0 30px rgba(201, 162, 91, 0.5)) !important;
 }
 
 @media (max-width: 640px) {
@@ -524,6 +523,11 @@ h2 {
 .page-bg-layer.active {
     opacity: 1;
 }
+.page-bg-overlay {
+    background: linear-gradient(rgba(26, 47, 37, 0.5), rgba(42, 75, 60, 0.4));
+    opacity: 1 !important;
+    z-index: 2;
+}
 #main-page {
     position: relative;
     z-index: 1;
@@ -536,23 +540,16 @@ header {
     display: flex; 
     align-items: center; 
     justify-content: center;
-    background: linear-gradient(rgba(26, 47, 37, 0.5), rgba(42, 75, 60, 0.4));
     text-align: center;
 
 }
 
 .hero {
-    background: #fefae0; 
     padding: 70px 40px; 
     border-radius: 16px; 
-    border: 2px solid var(--wood-warm); 
-    outline: 3px solid rgba(201, 162, 91, 0.3); 
-    outline-offset: -8px;
     max-width: 700px; 
     width: 100%; 
-    backdrop-filter: blur(8px); 
     animation: fadeIn 1.5s ease-out;
-    box-shadow: var(--magic-glow); 
     position: relative; 
     z-index: 10;
 }
@@ -561,8 +558,18 @@ header {
     font-size: clamp(2.2rem, 8vw, 3.8rem); 
     font-weight: 500;
     margin-bottom: 15px; 
-    color: var(--forest-deep); 
+    color: #f7f4e8;
     line-height: 1.1; 
+    white-space: nowrap;
+}
+
+.hero h1 span {
+    display: inline;
+}
+
+@media (max-width: 480px) {
+    .hero h1 { white-space: normal; }
+    .hero h1 span { display: block; }
 }
 
 .hero .subtitle { 
@@ -759,11 +766,12 @@ header {
     top: 50%; 
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #ffd700; 
+    color: #C9A25B; 
     font-size: 1.2rem;
     pointer-events: none; 
     z-index: 10;
-    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.8));
+    text-shadow: 0 0 10px rgba(201, 162, 91, 0.9), 0 0 30px rgba(201, 162, 91, 0.5);
+    filter: drop-shadow(0 0 8px rgba(201, 162, 91, 0.8)) drop-shadow(0 0 25px rgba(201, 162, 91, 0.3));
     animation: fallFromDigit 1.2s ease-out forwards;
 }
 
@@ -1174,6 +1182,20 @@ section {
 }
 
 /* КАРТА */
+.map-container.map-compact {
+    max-width: 600px;
+    margin: 0 auto;
+    float: none;
+}
+.map-compact img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+@media (max-width: 768px) {
+    .map-container.map-compact { max-width: 100%; }
+}
+
 .map-container {
     border: 4px solid var(--wood-warm);
     box-shadow: var(--magic-glow);
@@ -1227,7 +1249,7 @@ section {
 .weather-section {
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     padding: 40px 20px 50px;
     margin: 0 auto;
@@ -1240,14 +1262,10 @@ section {
     box-sizing: border-box;
 }
 .weather-card {
-    background: linear-gradient(135deg, #fefae0, #fdf8e4);
-    border: 3px solid var(--wood-warm);
     padding: clamp(35px, 5vw, 55px) clamp(20px, 4vw, 40px);
-    border-radius: 32px;
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: var(--magic-glow);
 }
 .weather-header {
     display: flex;
@@ -1262,10 +1280,12 @@ section {
 
 .weather-badge {
     font-size: 0.8rem;
-    background: rgba(201, 162, 91, 0.15);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     padding: 4px 12px;
     border-radius: 30px;
-    border: 1px solid rgba(201, 162, 91, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     font-family: 'MyBodyFont', sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -1291,6 +1311,8 @@ section {
 
 .weather-temp {
     text-align: left;
+    padding: 15px 25px;
+    border-radius: 16px;
 }
 
 .temp-value {
@@ -1312,18 +1334,67 @@ section {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
-    border-top: 2px dashed var(--wood-warm);
+    border-top: 2px dashed rgba(255, 255, 255, 0.15);
     padding-top: 25px;
     margin-top: 10px;
 }
 
 .weather-col {
     text-align: center;
+    padding: 15px 10px;
+    border-radius: 16px;
+}
+
+.location-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 50px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+.location-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 800px;
+    width: 100%;
+}
+.location-card {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    color: #f7f4e8;
+    text-decoration: none;
+}
+.location-card:hover {
+    transform: translateY(-4px);
+}
+.location-card i {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    color: rgba(247, 244, 232, 0.8);
+}
+.location-card h3 {
+    font-family: 'MyHeaderFont', serif;
+    font-size: 1.3rem;
+    margin: 0 0 8px;
+    color: #f7f4e8;
+}
+.location-card p {
+    margin: 0;
+    font-size: 1rem;
+    color: rgba(247, 244, 232, 0.7);
+    line-height: 1.5;
 }
 
 .weather-border {
-    border-left: 2px solid rgba(201, 162, 91, 0.2);
-    border-right: 2px solid rgba(201, 162, 91, 0.2);
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    border-right: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .weather-icon-water,
@@ -1610,46 +1681,43 @@ footer {
     margin: 0 auto; 
     font-size: clamp(1rem, 4vw, 1.25rem);
     padding: clamp(35px, 5vw, 55px) clamp(20px, 4vw, 40px);
-    background-color: #fefae0;
-    border: 2px solid var(--wood-warm); 
-    border-radius: 32px; 
-    box-shadow: var(--magic-glow); 
+    background: none;
+    border: none;
+    box-shadow: none;
     box-sizing: border-box;
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
 
-/* Зеленая иконка подарка */
+/* Иконка подарка */
 .gift-icon-pulse {
     width: 80px;
     height: 80px;
     margin: 0 auto 25px;
-    background: var(--forest-sage);
-    color: white;
+    background: none;
+    color: #C9A25B;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2.3rem;
-    box-shadow: 0 5px 15px rgba(96, 108, 56, 0.3);
+    box-shadow: none;
     animation: giftPulse 2.5s infinite ease-in-out;
 }
 
 @keyframes giftPulse {
     0%, 100% { 
         transform: scale(1); 
-        box-shadow: 0 5px 15px rgba(96, 108, 56, 0.3);
     }
     50% { 
         transform: scale(1.08); 
-        box-shadow: 0 10px 25px rgba(96, 108, 56, 0.5);
     }
 }
 
 /* УМЕНЬШЕННЫЙ И АДАПТИВНЫЙ ЗАГОЛОВОК */
 .gift-title-soft {
-    font-size: clamp(1.4rem, 4vw, 2rem); /* Уменьшил с 2rem-2.5rem до 1.6rem-2rem */
-    color: var(--forest-deep);
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    color: #f7f4e8;
     margin-bottom: 20px;
     line-height: 1.2;
     font-weight: 500;
@@ -1657,9 +1725,9 @@ footer {
 }
 
 .gift-poem {
-    font-size: clamp(1rem, 3.2vw, 1.2rem); /* Немного уменьшил */
+    font-size: clamp(1rem, 3.2vw, 1.2rem);
     line-height: 1.7;
-    color: var(--text-dark);
+    color: #f7f4e8;
     margin-bottom: 25px;
     max-width: 600px;
     margin-left: auto;
@@ -1671,18 +1739,18 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px; /* Уменьшил gap */
-    font-size: 1.1rem; /* Уменьшил */
-    color: var(--forest-sage);
-    margin: 0 auto 25px; /* Уменьшил нижний отступ */
+    gap: 12px;
+    font-size: 1.1rem;
+    color: #f7f4e8;
+    margin: 0 auto 25px;
     flex-wrap: wrap;
     font-weight: 500;
     text-align: center;
 }
 
 .gift-hint-line i {
-    font-size: 1.3rem; /* Уменьшил */
-    color: var(--forest-sage);
+    font-size: 1.3rem;
+    color: #f7f4e8;
 }
 
 .gift-button-wrapper {
@@ -1717,7 +1785,7 @@ footer {
 
 /* ===== ЕДИНЫЕ АДАПТИВНЫЕ ОТСТУПЫ ПО СТАНДАРТУ ДРЕСС-КОД ===== */
 @media (max-width: 768px) {
-    .gift-section:not(.bg-wishlist),
+    .gift-section,
     .guestbook-section,
     .dresscode-section,
     .weather-section {
@@ -1742,7 +1810,7 @@ footer {
 }
 
 @media (max-width: 480px) {
-    .gift-section:not(.bg-wishlist),
+    .gift-section,
     .guestbook-section,
     .dresscode-section,
     .weather-section {
@@ -1826,6 +1894,161 @@ footer {
     max-width: 300px;
   }
 }
+/* ===== ВИШ-ЛИСТ (СПИСОК ПОДАРКОВ) ===== */
+.wishlist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 30px auto 0;
+  max-width: 500px;
+}
+
+.wishlist-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  user-select: none;
+}
+
+.wishlist-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.wishlist-item.gifted {
+  text-decoration: line-through;
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
+.wishlist-item-name {
+  font-size: clamp(0.95rem, 3vw, 1.1rem);
+  color: #f7f4e8;
+  font-weight: 500;
+}
+
+/* ===== МОДАЛКА ПОДАРКА ===== */
+.gift-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gift-modal.show {
+  display: flex;
+  opacity: 1;
+}
+
+.gift-modal-content {
+  background: #fefae0;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 420px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  border: 2px solid var(--wood-warm);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.gift-modal.show .gift-modal-content {
+  transform: translateY(0);
+}
+
+.gift-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: var(--forest-deep);
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.gift-modal-text {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  margin-bottom: 25px;
+  margin-top: 10px;
+}
+
+.gift-modal-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.gift-modal-btn {
+  padding: 12px 32px;
+  border: none;
+  border-radius: 40px;
+  font-size: 1.05rem;
+  font-family: 'MyBodyFont', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.gift-modal-yes {
+  background: #C9A25B;
+  color: white;
+  box-shadow: 0 4px 12px rgba(201, 162, 91, 0.3);
+}
+
+.gift-modal-yes:hover {
+  background: #b8903e;
+  transform: translateY(-2px);
+}
+
+.gift-modal-no {
+  background: #e8e0d0;
+  color: #5C4E3D;
+}
+
+.gift-modal-no:hover {
+  background: #ddd4c0;
+  transform: translateY(-2px);
+}
+
+.gift-modal-view {
+  background: transparent;
+  color: #C9A25B;
+  border: 2px solid #C9A25B;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+.gift-modal-view:hover {
+  background: #C9A25B;
+  color: white;
+  transform: translateY(-2px);
+}
+
 /* ========== ДРЕСС-КОД С ЦВЕТОВОЙ ПАЛИТРОЙ ========== */
 .dresscode-section {
     width: 100%;
@@ -1848,10 +2071,6 @@ footer {
     text-align: center;
     width: 100%;
     padding: clamp(35px, 5vw, 55px) clamp(20px, 4vw, 40px);
-    background-color: #fefae0;
-    border: 2px solid var(--wood-warm);
-    border-radius: 32px;
-    box-shadow: var(--magic-glow);
     box-sizing: border-box;
 }
 
@@ -1877,7 +2096,7 @@ footer {
 
 .dresscode-title {
     font-size: clamp(2rem, 5vw, 2.5rem);
-    color: var(--forest-deep);
+    color: #f7f4e8;
     font-family: 'MyHeaderFont', serif;
     margin: 0;
     line-height: 1.2;
@@ -1885,24 +2104,21 @@ footer {
 
 .dresscode-description {
     font-size: clamp(1.1rem, 3.5vw, 1.3rem);
-    color: var(--forest-sage);
+    color: rgba(247, 244, 232, 0.8);
     margin-bottom: 35px;
     font-style: italic;
     line-height: 1.6;
 }
 
 .dresscode-palette {
-    background: rgba(201, 162, 91, 0.08);
-    border-radius: 28px;
     padding: 30px 25px;
     margin-bottom: 30px;
-    border: 1px dashed var(--wood-warm);
 }
 
 .palette-title {
     font-family: 'MyHeaderFont', serif;
     font-size: 1.3rem;
-    color: var(--forest-deep);
+    color: #f7f4e8;
     margin-bottom: 25px;
     letter-spacing: 1px;
 }
@@ -1920,14 +2136,12 @@ footer {
     align-items: center;
     gap: 10px;
     padding: 15px 10px;
-    background: rgba(255, 255, 255, 0.5);
     border-radius: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .palette-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(201, 162, 91, 0.2);
 }
 
 .palette-circle {
@@ -1946,13 +2160,13 @@ footer {
 .palette-label {
     font-family: 'MyBodyFont', sans-serif;
     font-size: 0.95rem;
-    color: var(--forest-deep);
+    color: #f7f4e8;
     font-weight: 500;
 }
 
 .dresscode-note {
     font-size: 1.1rem;
-    color: var(--forest-sage);
+    color: rgba(247, 244, 232, 0.85);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1964,7 +2178,7 @@ footer {
 
 .dresscode-note i {
     font-size: 1.3rem;
-    color: var(--wood-warm);
+    color: rgba(247, 244, 232, 0.7);
     animation: swayLeaf 4s infinite ease-in-out;
 }
 
@@ -2235,8 +2449,8 @@ footer {
 .guestbook-container { max-width: 800px; margin: 0 auto; }
 .guestbook-paper {
     text-align: center; width: 100%; margin: 0 auto; font-size: clamp(1rem, 4vw, 1.25rem);
-    padding: clamp(35px, 5vw, 55px) clamp(20px, 4vw, 40px); background-color: #fefae0;
-    border: 2px solid var(--wood-warm); border-radius: 32px; box-shadow: var(--magic-glow); box-sizing: border-box;
+    padding: clamp(35px, 5vw, 55px) clamp(20px, 4vw, 40px); background: none;
+    border: none; box-sizing: border-box;
 }
 .guestbook-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
 .guestbook-icon { font-size: 2.5rem; color: var(--forest-sage); margin-bottom: 10px; }
@@ -2275,6 +2489,19 @@ input[type="file"] { display: none; }
 .guestbook-status.success { color: var(--forest-sage); }
 .guestbook-status.error { color: #d9534f; }
 /* ДЕРЕВО ПОЖЕЛАНИЙ */
+.tree-section {
+    padding: 60px 20px 80px;
+}
+.tree-section .wishing-tree-wrapper {
+    margin-top: 0;
+}
+@media (max-width: 768px) {
+    .tree-section { padding: 40px 15px 60px; }
+}
+@media (max-width: 480px) {
+    .tree-section { padding: 30px 10px 50px; }
+}
+
 .wishing-tree-wrapper {
     margin-top: 50px;
     width: 100%;
@@ -2285,10 +2512,10 @@ input[type="file"] { display: none; }
 .wishing-tree-container {
     position: relative;
     width: 100%;
-    max-width: 900px; /* limits tree size on large screens */
+    max-width: 900px;
     border-radius: 20px;
     overflow: hidden;
-    /* The image has cream background, it blends if container doesn't have border */
+    box-shadow: 0 8px 32px rgba(201, 162, 91, 0.15);
 }
 
 .wishing-tree-bg {
@@ -2307,7 +2534,7 @@ input[type="file"] { display: none; }
 .wishing-tree-mask {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background-color: var(--forest-sage); /* Оливковый цвет сайта */
+    background-color: #C9A25B;
     -webkit-mask-image: url('../assets/img/pngegg.png');
     mask-image: url('../assets/img/pngegg.png');
     -webkit-mask-size: contain;
@@ -2497,6 +2724,259 @@ input[type="file"] { display: none; }
     border-radius: 12px;
     margin: 0 auto;
     display: block;
+}
+
+/* ===== CREAM SECTION — КРЕМОВЫЙ ФОН ВО ВСЮ ШИРИНУ ===== */
+.cream-section,
+.quote-section {
+    max-width: none !important;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+/* Guestbook paper — стекло как gift-paper */
+.guestbook-paper {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    border: none !important;
+    border-radius: 32px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+}
+.guestbook-paper .guestbook-title,
+.guestbook-paper .guestbook-description,
+.guestbook-paper .guestbook-icon,
+.guestbook-paper .guestbook-header i {
+    color: #f7f4e8 !important;
+}
+.guestbook-paper .form-group input,
+.guestbook-paper .form-group textarea {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #f7f4e8;
+}
+.guestbook-paper .form-group input:focus,
+.guestbook-paper .form-group textarea:focus {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+.guestbook-paper .form-group input::placeholder,
+.guestbook-paper .form-group textarea::placeholder {
+    color: rgba(247, 244, 232, 0.5);
+}
+.guestbook-paper .file-upload-label {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #f7f4e8;
+}
+.guestbook-paper .guestbook-submit-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #f7f4e8 !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+.guestbook-paper .guestbook-submit-btn:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.quote-section .quote-text {
+    color: #f7f4e8;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.quote-section .leaf-divider {
+    margin-bottom: 25px;
+}
+
+@media (max-width: 768px) {
+    .cream-section,
+    .quote-section { padding: 50px 15px; }
+}
+@media (max-width: 480px) {
+    .cream-section,
+    .quote-section { padding: 40px 10px; }
+}
+
+/* ===== GLASS THEME — ПРОЗРАЧНЫЕ СЕКЦИИ ПОВЕРХ page-bg ===== */
+
+/* bg-forest только для parallax-секции (детали) */
+.bg-forest {
+    background-image: url('../assets/img/forest-bg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Glass карточки — прозрачные с размытием */
+.gift-paper {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: none !important;
+    border-radius: 32px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Wishlist paper */
+.wishlist-paper {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ===== БЕЛЫЙ ТЕКСТ В GLASS КАРТОЧКАХ ===== */
+
+/* Gift */
+.gift-title-soft,
+.gift-poem,
+.gift-hint-line,
+.gift-hint-line span,
+.gift-hint-line i,
+.gift-icon-pulse {
+    color: #f7f4e8 !important;
+}
+
+/* Wishlist */
+.wishlist-title,
+.wishlist-description,
+.wishlist-icon,
+.gift-info {
+    color: #f7f4e8 !important;
+}
+
+/* Guestbook */
+.guestbook-title,
+.guestbook-description,
+.guestbook-icon {
+    color: #f7f4e8 !important;
+}
+
+/* Dresscode */
+.dresscode-title,
+.dresscode-description,
+.palette-title,
+.palette-label,
+.dresscode-note,
+.dresscode-icon {
+    color: #f7f4e8 !important;
+}
+
+/* Weather */
+.weather-header,
+.weather-header span,
+.weather-badge,
+.temp-value,
+.temp-desc,
+.weather-val,
+.weather-label {
+    color: #f7f4e8 !important;
+}
+.weather-icon-sun,
+.weather-icon-water,
+.weather-icon-wind,
+.weather-icon-rain {
+    color: rgba(247, 244, 232, 0.9) !important;
+}
+
+/* Hero */
+.hero h1,
+.hero .date,
+.hero .date i,
+.hero .date span,
+.hero p {
+    color: #f7f4e8 !important;
+}
+.hero h1 {
+    white-space: nowrap !important;
+}
+@media (max-width: 480px) {
+    .hero h1 { white-space: normal !important; }
+    .hero h1 span { display: block !important; }
+}
+.hero .countdown div {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+}
+.hero .countdown small {
+    opacity: 0.7;
+}
+
+/* Секция таймера */
+.wedding-countdown div {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1) !important;
+}
+.wedding-countdown span {
+    color: #f7f4e8 !important;
+    text-shadow: 0 0 10px rgba(247, 244, 232, 0.4) !important;
+}
+.wedding-countdown small {
+    color: rgba(247, 244, 232, 0.7) !important;
+}
+
+/* Палитра на glass фоне */
+.palette-item {
+    background: rgba(255, 255, 255, 0.06) !important;
+}
+.palette-circle {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Погода — легкий фон для карточек */
+.weather-temp,
+.weather-col {
+    background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Формы на glass фоне */
+.form-group input,
+.form-group textarea {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #f7f4e8;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(247, 244, 232, 0.5);
+}
+.file-upload-label {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #f7f4e8;
+}
+
+/* Виш-лист элементы */
+.gift-item {
+    border-bottom-color: rgba(247, 244, 232, 0.15);
+}
+.gift-claimed-text {
+    color: #f7b5b5;
+}
+.loading-wishlist {
+    color: rgba(247, 244, 232, 0.7);
+}
+
+/* Guestbook submit button */
+.guestbook-submit-btn {
+    background: rgba(255, 255, 255, 0.15) !important;
+    color: #f7f4e8 !important;
+}
+.guestbook-submit-btn:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
 }
 
 /* ИНТЕРАКТИВНЫЙ ВИШ-ЛИСТ */

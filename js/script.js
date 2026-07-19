@@ -146,12 +146,19 @@ function initMainScripts() {
   // 2. Таймер с падающими листьями
   const weddingDate = new Date('2026-08-02T15:00:00');
   let prevValues = { d: null, h: null, m: null, s: null };
+  let prevValues2 = { d: null, h: null, m: null, s: null };
 
   const countdownEls = {
     d: document.getElementById('days'),
     h: document.getElementById('hours'),
     m: document.getElementById('minutes'),
     s: document.getElementById('seconds')
+  };
+  const countdownEls2 = {
+    d: document.getElementById('days2'),
+    h: document.getElementById('hours2'),
+    m: document.getElementById('minutes2'),
+    s: document.getElementById('seconds2')
   };
 
   function updateCountdown() {
@@ -181,6 +188,20 @@ function initMainScripts() {
 
         prevValues[key] = values[key];
       }
+    });
+
+    // Второй таймер
+    Object.keys(values).forEach(key => {
+      const el = countdownEls2[key];
+      if (!el) return;
+
+      const formattedVal = values[key] < 10 ? '0' + values[key] : values[key];
+      el.textContent = formattedVal;
+
+      if (prevValues2[key] !== null && prevValues2[key] !== values[key]) {
+        spawnTimerLeaf(el.parentElement);
+      }
+      prevValues2[key] = values[key];
     });
   }
 
@@ -254,31 +275,37 @@ function initPageBg() {
   if (!layers.length) return;
 
   const sections = [
-    { el: document.querySelector('header'), index: 0 },
-    { el: document.getElementById('wishlist'), index: 1 },
-    { el: document.getElementById('details'), index: 2 }
+    { el: document.getElementById('dresscode'), index: 0 },
+    { el: document.getElementById('gift'), index: 1 }
   ];
 
+  let activeLayer = 0;
+
   function activateLayer(index) {
+    if (index === activeLayer) return;
+    activeLayer = index;
     layers.forEach((layer, i) => {
       layer.classList.toggle('active', i === index);
     });
   }
 
-  // Активируем первый слой по умолчанию
   activateLayer(0);
 
   const observer = new IntersectionObserver((entries) => {
+    let maxIndex = -1;
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const section = sections.find(s => s.el === entry.target);
-        if (section) {
-          activateLayer(section.index);
+        if (section && section.index > maxIndex) {
+          maxIndex = section.index;
         }
       }
     });
+    if (maxIndex >= 0 && maxIndex !== activeLayer) {
+      activateLayer(maxIndex);
+    }
   }, {
-    rootMargin: '0px 0px -50% 0px',
+    rootMargin: '0px',
     threshold: 0
   });
 
@@ -806,121 +833,52 @@ async function loadRealWeather() {
 
 document.addEventListener('DOMContentLoaded', () => {
     loadRealWeather();
-    loadWishlist();
+    initGiftModal();
 });
 
-// ===== ИНТЕРАКТИВНЫЙ ВИШ-ЛИСТ =====
-const wishlistContainer = document.getElementById('dynamic-wishlist');
+// ===== МОДАЛКА ПОДАРКА =====
+function initGiftModal() {
+  const items = document.querySelectorAll('.wishlist-item');
+  const modal = document.getElementById('gift-modal');
+  const close = document.getElementById('gift-modal-close');
+  const yes = document.getElementById('gift-modal-yes');
+  const no = document.getElementById('gift-modal-no');
+  const view = document.getElementById('gift-modal-view');
+  const nameEl = document.getElementById('gift-modal-item-name');
+  let currentItem = null;
 
-function loadWishlist() {
-    if (!wishlistContainer) return;
-
-    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
-    if (isLocal) {
-        // Мок для локальной разработки
-        let localData = localStorage.getItem('mockWishlistV5');
-        if (!localData) {
-            localData = [
-                {"id": "1", "name": "3D принтер Bambu Lab", "link": "https://market.yandex.ru/card/3d-printer-bambu-lab-a1-mini-bez-ams-sistemy-eu/4657311831?do-waremd5=TbxZYrS2BcxDe7iYBkXrww&cpc=G3IIPaE9ym3c94MZ8vjXNtwRRDyakVBGtaOlApfRVCzz3MNdXS67UOdj5qJ2Z2vrfRnuWF0kkCQiJno5mJofMDfnwoa_uvXHwXJd-uBdERMI1GuwRh2aK-YDd9HnjjIOubCL6xKahI386IZcsYwBs6PiQZeMspyWapkoLi6GE2L5S1FPjX2LvreP8s5e88NMgeiXiISJD3wmOGEjXoOkxHJBi93r1nAhOh0mufNGJo4jmdA7oIBgcpz5Lg9dFJvbKcRtW8OfkXp4VXGiH35_qcmF79LWhxLeEBdtJ3SXaFXyBEOXi8MGIHN10FdJ9kDY6_ZnTp74wesg0IJ0q8THLVJ59oNTVKQCCnYxhLQWN4jtX8ws1poP2zg1l_kefAgOFa1LEsgWqUwyuI_u9H_oJ1j_HpwZJA0e5Ap3c6GdpdpWfEmxTDM6O2wajRd_Zcww&nid=27022410&ogV=-12", "claimed": false, "claimedBy": null},
-                {"id": "2", "name": "Кастрюля", "link": "https://www.ozon.ru/product/kokot-savosa-4-8-l-emalirovannaya-chugunnaya-kastryulya-s-kryshkoy-26-sm-savosa-dlya-induktsionnoy-1315535347/", "claimed": false, "claimedBy": null},
-                {"id": "3", "name": "Книги с вашими подписями", "claimed": false, "claimedBy": null},
-                {"id": "4", "name": "50-ти литровая канистра 95 бензина", "claimed": false, "claimedBy": null},
-                {"id": "5", "name": "Заднее правое крыло для Skoda Octavia", "claimed": false, "claimedBy": null}
-            ];
-            localStorage.setItem('mockWishlistV5', JSON.stringify(localData));
-        } else {
-            localData = JSON.parse(localData);
-        }
-        renderWishlist(localData);
-        return;
-    }
-
-    // Реальный запрос к API
-    fetch('api/get_wishlist.php')
-        .then(res => res.json())
-        .then(data => renderWishlist(data))
-        .catch(err => {
-            console.error('Ошибка загрузки виш-листа:', err);
-            wishlistContainer.innerHTML = '<p style="color:red;text-align:center;">Ошибка загрузки списка подарков.</p>';
-        });
-}
-
-function renderWishlist(data) {
-    wishlistContainer.innerHTML = '';
-    
-    data.forEach(gift => {
-        const item = document.createElement('div');
-        item.className = `gift-item ${gift.claimed ? 'claimed' : ''}`;
-        
-        let actionHtml = '';
-        if (gift.claimed) {
-            const safeName = gift.claimedBy ? gift.claimedBy.replace(/</g, "&lt;").replace(/>/g, "&gt;") : 'Кто-то';
-            actionHtml = `<div class="gift-claimed-text">Выбрано (${safeName})</div>`;
-        } else {
-            actionHtml = `<button class="gift-btn" onclick="claimGift('${gift.id}')">Подарить</button>`;
-        }
-
-        let nameHtml = gift.name;
-        if (gift.link && !gift.claimed) {
-            // Если есть ссылка и подарок не выбран, делаем имя кликабельным
-            nameHtml = `<a href="${gift.link}" target="_blank" style="color: var(--forest-sage); text-decoration: underline; transition: color 0.3s;" onmouseover="this.style.color='var(--forest-deep)'" onmouseout="this.style.color='var(--forest-sage)'">${gift.name}</a>`;
-        } else if (gift.link && gift.claimed) {
-            // Если выбран, просто текст
-            nameHtml = `<span>${gift.name}</span>`;
-        }
-
-        item.innerHTML = `
-            <div class="gift-info">
-                <i class="fas fa-leaf"></i> 
-                <span>${nameHtml}</span>
-            </div>
-            <div class="gift-action">
-                ${actionHtml}
-            </div>
-        `;
-        wishlistContainer.appendChild(item);
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      if (item.classList.contains('gifted')) return;
+      currentItem = item;
+      nameEl.textContent = item.dataset.item;
+      if (item.dataset.link) {
+        view.href = item.dataset.link;
+        view.style.display = 'inline-block';
+      } else {
+        view.style.display = 'none';
+      }
+      modal.classList.add('show');
     });
-}
+  });
 
-window.claimGift = function(id) {
-    const guestName = prompt("Введите ваше имя, чтобы мы знали, от кого этот подарок:");
-    if (!guestName || guestName.trim() === '') return;
+  function closeModal() {
+    modal.classList.remove('show');
+    currentItem = null;
+  }
 
-    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  close.addEventListener('click', closeModal);
+  no.addEventListener('click', closeModal);
 
-    if (isLocal) {
-        let localData = JSON.parse(localStorage.getItem('mockWishlistV5') || '[]');
-        const gift = localData.find(g => g.id === id);
-        if (gift && !gift.claimed) {
-            gift.claimed = true;
-            gift.claimedBy = guestName.trim();
-            localStorage.setItem('mockWishlistV5', JSON.stringify(localData));
-            loadWishlist();
-        } else {
-            alert("Этот подарок уже выбран.");
-        }
-        return;
+  yes.addEventListener('click', () => {
+    if (currentItem) {
+      currentItem.classList.add('gifted');
+      currentItem.style.pointerEvents = 'none';
+      closeModal();
     }
+  });
 
-    const formData = new FormData();
-    formData.append('id', id);
-    formData.append('guestName', guestName);
-
-    fetch('api/claim_gift.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            loadWishlist();
-        } else {
-            alert(data.error || "Произошла ошибка при бронировании подарка.");
-        }
-    })
-    .catch(err => {
-        console.error('Ошибка бронирования:', err);
-        alert("Ошибка соединения с сервером.");
-    });
-};
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+}

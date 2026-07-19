@@ -39,7 +39,7 @@
       <div class="entry-tree-btn" id="entry-tree-btn"></div>
       <div class="entry-nav-row">
         <div class="entry-nav-item entry-fade-in entry-delay-1" data-target="gift">Подарки</div>
-        <div class="entry-nav-item entry-fade-in entry-delay-2" data-target="details" id="ceremony-item">Церемония</div>
+        <div class="entry-nav-item entry-fade-in entry-delay-2" data-target="timing" id="ceremony-item">Церемония</div>
         <div class="entry-nav-item entry-fade-in entry-delay-3" data-target="guestbook">Пожелания</div>
       </div>
     </div>
@@ -50,9 +50,9 @@
 
 
   <div id="page-bg">
-    <div class="page-bg-layer" style="background-image: url('assets/img/forest-bg.jpg');"></div>
-    <div class="page-bg-layer" style="background-image: url('assets/img/337966@2x.webp');"></div>
-    <div class="page-bg-layer" style="background-image: url('assets/img/335687@2x.webp');"></div>
+    <div class="page-bg-layer active" style="background-image: url('assets/img/337966@2x.webp');"></div>
+    <div class="page-bg-layer" style="background-image: url('assets/img/Вид_из_Ливадии_Айвазовский.jpg');"></div>
+    <div class="page-bg-layer page-bg-overlay"></div>
   </div>
 
   <div id="main-page" style="display: none;">
@@ -64,17 +64,10 @@
 
     <header>
       <div class="hero">
-        <p class="subtitle">Приглашение на свадьбу</p>
-        <h1>Павел Сергеевич<br>&<br>Маруся Дмитриевна</h1>
+        <h1 class="hero-title"><span>Павел</span> <span>и</span> <span>Маруся</span></h1>
         <div class="date">
           <i class="far fa-calendar-alt" style="color: var(--wood-warm);"></i>
           <span>2 августа 2026</span>
-        </div>
-        <div id="countdown" class="countdown">
-          <div><span id="days">0</span><small>Дней</small></div>
-          <div><span id="hours">0</span><small>Часов</small></div>
-          <div><span id="minutes">0</span><small>Минут</small></div>
-          <div><span id="seconds">0</span><small>Секунд</small></div>
         </div>
         <p style="margin-top: 30px; font-weight: 600; font-size: 0.8rem;">
           <i class="fas fa-map-marker-alt" style="color: var(--wood-warm); margin-right: 8px; filter: drop-shadow(0 0 5px var(--gold-glow));"></i>
@@ -83,153 +76,96 @@
       </div>
     </header>
 
-<!-- ЧТО ПОДАРИТЬ – В СТИЛЕ ПРИГЛАШЕНИЯ -->
-<section class="gift-section fade-in" id="gift">
-  <div class="gift-container">
-    <div class="gift-paper">
-      <div class="gift-icon-pulse">
-        <i class="fas fa-gift"></i>
-      </div>
-
-      <h2 class="gift-title-soft">Что подарить?</h2>
-      
-      <p class="gift-poem">
-        Ваше присутствие, улыбки и поддержка — лучший подарок
-      </p>
-
-      <div class="gift-hint-line">
-        <i class="fas fa-leaf"></i>
-        <span>Не дарите цветы - они завянут, а наши эмоции от свадебного путешествия - нет</span>
-        <i class="fas fa-leaf"></i>
-      </div>
-
-      <div class="gift-button-wrapper">
-        <a href="https://tbank.ru/cf/2f6Ekmblbdl" target="_blank" rel="noopener noreferrer" class="gift-soft-btn">
-          Альтернатива конверту
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ВИШ-ЛИСТ -->
-<section class="wishlist-section bg-wishlist fade-in" id="wishlist">
-  <div class="overlay-dark"></div>
-  <div class="wishlist-container">
-    <div class="wishlist-paper">
-      <div class="wishlist-header">
-        <i class="fas fa-heart wishlist-icon"></i>
-        <h2 class="wishlist-title">Виш-лист</h2>
-      </div>
-      <p class="wishlist-description">
-        Если вы хотите подарить нам что-то вещественное, мы составили небольшой список того, что нас порадует:
-      </p>
-      <div id="dynamic-wishlist" class="wishlist-dynamic-container">
-        <div class="loading-wishlist">Загрузка списка подарков...</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ДРЕВЕНЬ ПОЖЕЛАНИЙ -->
-<section class="guestbook-section fade-in" id="guestbook">
-  <div class="guestbook-container">
-    <div class="guestbook-paper">
-      <div class="guestbook-header">
-        <i class="fas fa-camera-retro guestbook-icon"></i>
-        <h2 class="guestbook-title">Древень пожеланий</h2>
-      </div>
-      <p class="guestbook-description">
-        «У нас, энтов, долгая память…» Оставьте здесь теплые слова, фото или видео.
-      </p>
-      
-      <form id="guestbook-form" class="guestbook-form">
-        <div class="form-group">
-          <input type="text" id="guestName" placeholder="Ваше имя" required>
-        </div>
-        <div class="form-group">
-          <textarea id="guestMessage" rows="3" placeholder="Ваше пожелание..."></textarea>
-        </div>
-        <div class="form-group file-upload-group">
-          <label for="guestMedia" class="file-upload-label">
-            <i class="fas fa-cloud-upload-alt"></i> Прикрепить фото или видео
-          </label>
-          <input type="file" id="guestMedia" name="guestMedia[]" accept="image/*,video/*" multiple>
-          <div id="file-preview" class="file-preview"></div>
-        </div>
-        <button type="submit" class="btn guestbook-submit-btn">Отправить</button>
-        <div id="guestbook-status" class="guestbook-status"></div>
-      </form>
-    </div> <!-- Close guestbook-paper here -->
-
-    <div class="wishing-tree-wrapper fade-in">
-        <div class="wishing-tree-container" id="wishing-tree-container">
-          <div class="wishing-tree-bg-wrapper">
-            <img src="assets/img/pngegg.png" alt="Дерево пожеланий" class="wishing-tree-bg" style="opacity: 0;">
-            <div class="wishing-tree-mask"></div>
-          </div>
-          <!-- Полароиды будут добавляться сюда через JS -->
-        </div>
-      </div>
-
-      <!-- Модальное окно для полароидов -->
-      <div id="leaf-modal" class="leaf-modal">
-        <div class="leaf-modal-content">
-          <span class="close-modal" id="close-leaf-modal">&times;</span>
-          <div id="leaf-modal-body"></div>
-        </div>
-      </div>
-  </div>
-</section>
-
    <!-- Цитата -->
-<section>
-  <div class="leaf-divider"><i class="fas fa-leaf"></i></div>
-  
-  <div class="quote-text fade-in">
+<section class="quote-section fade-in" style="background: none; border: none; box-shadow: none; padding: 30px 20px;">
+  <div class="leaf-divider" style="color: rgba(247,244,232,0.5);"><i class="fas fa-leaf"></i></div>
+  <div class="quote-text" style="color: #f7f4e8;">
     "Я предпочту разделить с тобой одну смертную жизнь, чем провести в одиночестве все эпохи мира."
   </div>
 </section>
-    <!-- Детали -->
-    <section class="parallax-section bg-forest" id="details">
-      <div class="overlay-dark"></div>
-      
-      <div class="parallax-inner">
-        <h2 style="color: #f7f4e8; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Детали события</h2>
-        <div class="details-container fade-in" style="background: rgba(255, 255, 255, 0.1); border-color: rgba(255,255,255,0.3); backdrop-filter: blur(5px);">
-            <div class="details">
-              <div class="card">
-                  <i class="fas fa-clock" style="color: #f7f4e8;"></i>
-                  <h3 style="color: #f7f4e8;">Тайминг</h3>
-                  <p style="color: #f7f4e8;">2 августа 2026<br>Венчание: 15:00<br>Торжество: 17:00</p>
-              </div>
-              <div class="card">
-                  <i class="fas fa-tree" style="color: #f7f4e8;"></i>
-                  <h3 style="color: #f7f4e8;">Локация</h3>
-                  <p style="color: #f7f4e8;"><strong>Отель "Зазеркалье"</strong><br>г. Ялта, Приморский парк, 9</p>
-              </div>
-              <div class="card">
-                  <i class="fas fa-glass-cheers" style="color: #f7f4e8;"></i>
-                  <h3 style="color: #f7f4e8;">Дресс-код</h3>
-                  <p style="color: #f7f4e8;">Природные тона: зеленый, сливочный, оливковый, беж.</p>
-              </div>
-            </div>
+
+<!-- ТАЙМЕР ДО СВАДЬБЫ -->
+<section class="fade-in" style="text-align:center; padding: 50px 20px 60px; max-width: 800px; margin: 0 auto;">
+  <h2 style="color: #f7f4e8; text-shadow: 0 2px 10px rgba(0,0,0,0.5); font-size: clamp(2rem, 5vw, 2.5rem); margin-bottom: 30px;">До свадьбы осталось</h2>
+  <div id="countdown" class="countdown wedding-countdown">
+    <div><span id="days2">0</span><small>Дней</small></div>
+    <div><span id="hours2">0</span><small>Часов</small></div>
+    <div><span id="minutes2">0</span><small>Минут</small></div>
+    <div><span id="seconds2">0</span><small>Секунд</small></div>
+  </div>
+</section>
+
+<!-- ТАЙМИНГ -->
+<section class="fade-in" style="text-align:center; padding: 40px 20px 50px; max-width: 800px; margin: 0 auto;" id="timing">
+  <h2 style="color: #f7f4e8; text-shadow: 0 2px 10px rgba(0,0,0,0.5); font-size: clamp(2rem, 5vw, 2.5rem); margin-bottom: 30px;">Тайминг</h2>
+  <div style="color: #f7f4e8; font-size: clamp(1.2rem, 3vw, 1.5rem); line-height: 2; display: flex; flex-direction: column; gap: 10px;">
+    <div style="background: rgba(255,255,255,0.06); border-radius: 16px; padding: 20px 30px;">15:00 — Венчание в храме</div>
+    <div style="background: rgba(255,255,255,0.06); border-radius: 16px; padding: 20px 30px;">15:30 — Фуршет в храме</div>
+    <div style="background: rgba(255,255,255,0.06); border-radius: 16px; padding: 20px 30px;">17:00 — Банкет в Зазеркалье</div>
+  </div>
+</section>
+
+<!-- ЛОКАЦИЯ -->
+<section class="location-section fade-in" id="location">
+  <h2 style="color: #f7f4e8; text-shadow: 0 2px 10px rgba(0,0,0,0.5); font-size: clamp(2rem, 5vw, 2.5rem); margin-bottom: 30px;">Локация</h2>
+  <div class="location-grid">
+    <div class="location-card" onclick="window.open('https://yandex.ru/maps/-/CTVBNQjo', '_blank')">
+      <i class="fas fa-church"></i>
+      <h3>Храм Вознесения Господня</h3>
+      <p>Ливадия</p>
+    </div>
+    <div class="location-card" onclick="window.open('https://yandex.ru/maps/-/CTVBNNki', '_blank')">
+      <i class="fas fa-hotel"></i>
+      <h3>Отель «Зазеркалье»</h3>
+      <p>г. Ялта, Приморский парк, 9</p>
+    </div>
+  </div>
+</section>
+
+<!-- ПОГОДА -->
+<section class="weather-section fade-in" id="weather">
+  <h2 style="color: #f7f4e8; text-shadow: 0 2px 10px rgba(0,0,0,0.5); margin-bottom: 25px; text-align:center; font-size: clamp(2rem, 5vw, 2.5rem);">Погода</h2>
+  <div class="weather-container">
+    <div class="weather-card">
+      <div class="weather-header">
+        <span id="weather-title">Ялта • Сейчас</span>
+      </div>
+      <div class="weather-main-row">
+        <i class="fas fa-sun weather-icon-sun" id="weather-icon"></i>
+        <div class="weather-temp">
+          <div class="temp-value" id="weather-temp-main">...</div>
+          <div class="temp-desc" id="weather-desc">Загрузка</div>
         </div>
       </div>
-    </section>
-    
+      
+      <div class="weather-grid">
+        <div class="weather-col">
+          <i class="fas fa-water weather-icon-water"></i>
+          <div class="weather-val" id="weather-water">24°C</div>
+          <div class="weather-label">Вода</div>
+        </div>
+        <div class="weather-col weather-border">
+          <i class="fas fa-wind weather-icon-wind"></i>
+          <div class="weather-val" id="weather-wind">...</div>
+          <div class="weather-label">Ветер</div>
+        </div>
+        <div class="weather-col">
+          <i class="fas fa-umbrella weather-icon-rain"></i>
+          <div class="weather-val" id="weather-rain">...</div>
+          <div class="weather-label">Осадки</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
      <!-- ДРЕСС-КОД И ЦВЕТОВАЯ ПАЛИТРА -->
 <section class="dresscode-section fade-in" id="dresscode">
   <div class="dresscode-container">
     <div class="dresscode-paper">
       <div class="dresscode-header">
-        <i class="fas fa-glass-cheers dresscode-icon"></i>
         <h2 class="dresscode-title">Дресс-код</h2>
       </div>
-      
-      <p class="dresscode-description">
-        Поддержите атмосферу вечера: природные оттенки, мягкие ткани и спокойные благородные цвета
-      </p>
 
       <div class="dresscode-palette">
         <div class="palette-title">Цветовая гамма</div>
@@ -278,58 +214,111 @@
   </div>
 </section>
 
-
-
-     <!-- ЛОКАЦИЯ -->
-      <h2 style="font-size: 2.5rem; margin-bottom: 25px; color: var(--forest-deep);">Локация</h2>
-
-      <div class="map-container fade-in" id="map" style="margin-top: 0px; position: relative; cursor: pointer;" onclick="window.open('https://yandex.ru/maps/-/CPAObFmg', '_blank')">
-        <img src="assets/img/fantasy-map.jpg" alt="Карта" style="width: 100%; height: auto; display: block;" loading="lazy" decoding="async">
-        <div style="position: absolute; bottom: 20px; left: 0; width: 100%; text-align: center; pointer-events: none;">
-          <span style="background: rgba(42, 75, 60, 0.8); color: var(--wood-warm); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; border: 1px solid var(--wood-warm);">
-            <i class="fas fa-external-link-alt"></i> Проложить путь 
-          </span>
-        </div>
+<!-- ЧТО ПОДАРИТЬ И ВИШ-ЛИСТ -->
+<section class="gift-section fade-in" id="gift">
+  <div class="gift-container">
+    <div class="gift-paper">
+      <div class="gift-icon-pulse">
+        <i class="fas fa-gift"></i>
       </div>
 
-<!-- ПОГОДА -->
-<section class="weather-section fade-in" id="weather">
-  <div class="weather-container">
-    <div class="weather-card">
-      <div class="weather-header">
-        <span id="weather-title">Ялта • Сейчас</span>
-        <span class="weather-badge" id="weather-badge">Прогноз</span>
+      <h2 class="gift-title-soft">Что подарить?</h2>
+
+      <div class="gift-hint-line">
+        <i class="fas fa-leaf"></i>
+        <span>Не дарите цветы — они завянут, а наши эмоции от свадебного путешествия — нет</span>
+        <i class="fas fa-leaf"></i>
       </div>
-      
-      <div class="weather-main-row">
-        <i class="fas fa-sun weather-icon-sun" id="weather-icon"></i>
-        <div class="weather-temp">
-          <div class="temp-value" id="weather-temp-main">...</div>
-          <div class="temp-desc" id="weather-desc">Загрузка</div>
+
+      <p class="gift-poem">
+        Если вы хотите подарить нам что-то вещественное, мы составили небольшой список того, что нас порадует:
+      </p>
+
+      <div class="wishlist-items" id="wishlist-items">
+        <div class="wishlist-item" data-item="3D принтер Bambu Lab" data-link="https://market.yandex.ru/card/3d-printer-bambu-lab-a1-mini-bez-ams-sistemy-eu/4657311831">
+          <span class="wishlist-item-name">3D принтер Bambu Lab</span>
         </div>
-      </div>
-      
-      <div class="weather-grid">
-        <div class="weather-col">
-          <i class="fas fa-water weather-icon-water"></i>
-          <div class="weather-val" id="weather-water">24°C</div>
-          <div class="weather-label">Вода</div>
+        <div class="wishlist-item" data-item="Кастрюля" data-link="https://www.ozon.ru/product/kokot-savosa-4-8-l-emalirovannaya-chugunnaya-kastryulya-s-kryshkoy-26-sm-savosa-dlya-induktsionnoy-1315535347/">
+          <span class="wishlist-item-name">Кастрюля</span>
         </div>
-        <div class="weather-col weather-border">
-          <i class="fas fa-wind weather-icon-wind"></i>
-          <div class="weather-val" id="weather-wind">...</div>
-          <div class="weather-label">Ветер</div>
+        <div class="wishlist-item" data-item="Книги с вашими подписями">
+          <span class="wishlist-item-name">Книги с вашими подписями</span>
         </div>
-        <div class="weather-col">
-          <i class="fas fa-umbrella weather-icon-rain"></i>
-          <div class="weather-val" id="weather-rain">...</div>
-          <div class="weather-label">Осадки</div>
+        <div class="wishlist-item" data-item="50-ти литровая канистра 95 бензина">
+          <span class="wishlist-item-name">50-ти литровая канистра 95 бензина</span>
+        </div>
+        <div class="wishlist-item" data-item="Заднее правое крыло для Skoda Octavia">
+          <span class="wishlist-item-name">Заднее правое крыло для Skoda Octavia</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- МОДАЛКА ПОДАРКА -->
+<div class="gift-modal" id="gift-modal">
+  <div class="gift-modal-content">
+    <span class="gift-modal-close" id="gift-modal-close">&times;</span>
+    <p class="gift-modal-text">Подарить <strong id="gift-modal-item-name"></strong>?</p>
+    <a class="gift-modal-btn gift-modal-view" id="gift-modal-view" target="_blank" rel="noopener noreferrer">Посмотреть</a>
+    <div class="gift-modal-buttons">
+      <button class="gift-modal-btn gift-modal-yes" id="gift-modal-yes">Подарить</button>
+      <button class="gift-modal-btn gift-modal-no" id="gift-modal-no">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<!-- ГОСТЕВАЯ КНИГА -->
+<section class="guestbook-section fade-in" id="guestbook">
+  <div class="guestbook-container">
+    <div class="guestbook-paper">
+      <div class="guestbook-header">
+        <i class="fas fa-camera-retro guestbook-icon"></i>
+        <h2 class="guestbook-title">Древень пожеланий</h2>
+      </div>
+      <p class="guestbook-description">
+        «У нас, энтов, долгая память…» Оставьте здесь теплые слова, фото или видео.
+      </p>
+      
+      <form id="guestbook-form" class="guestbook-form">
+        <div class="form-group">
+          <input type="text" id="guestName" placeholder="Ваше имя" required>
+        </div>
+        <div class="form-group">
+          <textarea id="guestMessage" rows="3" placeholder="Ваше пожелание..."></textarea>
+        </div>
+        <div class="form-group file-upload-group">
+          <label for="guestMedia" class="file-upload-label">
+            <i class="fas fa-cloud-upload-alt"></i> Прикрепить фото или видео
+          </label>
+          <input type="file" id="guestMedia" name="guestMedia[]" accept="image/*,video/*" multiple>
+          <div id="file-preview" class="file-preview"></div>
+        </div>
+        <button type="submit" class="btn guestbook-submit-btn">Отправить</button>
+        <div id="guestbook-status" class="guestbook-status"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ДЕРЕВО ПОЖЕЛАНИЙ -->
+<section class="tree-section cream-section fade-in" id="guestbook-tree">
+  <div class="wishing-tree-wrapper">
+    <div class="wishing-tree-container" id="wishing-tree-container">
+      <div class="wishing-tree-bg-wrapper">
+        <img src="assets/img/pngegg.png" alt="Дерево пожеланий" class="wishing-tree-bg" style="opacity: 0;">
+        <div class="wishing-tree-mask"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="leaf-modal" class="leaf-modal">
+    <div class="leaf-modal-content">
+      <span class="close-modal" id="close-leaf-modal">&times;</span>
+      <div id="leaf-modal-body"></div>
+    </div>
+  </div>
+</section>
 
   <script src="js/script.js"></script>
 </body>
