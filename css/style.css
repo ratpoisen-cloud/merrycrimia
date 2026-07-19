@@ -2540,10 +2540,10 @@ input[type="file"] { display: none; }
 /* Полароиды-листочки */
 .polaroid-leaf {
     position: absolute;
-    width: 65px;
-    height: 105px;
+    width: 185px;
+    height: 300px;
     background: #fff;
-    padding: 4px;
+    padding: 6px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     border-radius: 2px;
     cursor: pointer;
@@ -2558,7 +2558,7 @@ input[type="file"] { display: none; }
 }
 
 .polaroid-leaf:hover {
-    transform: scale(1.2) rotate(0deg) !important;
+    transform: scale(1.1) rotate(0deg) !important;
     z-index: 20;
     animation: none;
 }
@@ -2588,7 +2588,7 @@ input[type="file"] { display: none; }
 
 .polaroid-img-preview {
     width: 100%;
-    height: 75px;
+    height: 270px;
     background-color: #ddd;
     background-size: cover;
     background-position: center;
@@ -2597,30 +2597,29 @@ input[type="file"] { display: none; }
 
 .polaroid-text-preview {
     width: 100%;
-    height: 75px;
+    height: 270px;
     background-color: #fefae0;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.6rem;
+    font-size: 1rem;
     color: var(--forest-deep);
     text-align: center;
     overflow: hidden;
-    padding: 2px;
+    padding: 4px;
     border: 1px solid #eee;
 }
 
 .polaroid-author {
-    font-size: 0.5rem;
-    margin-top: 4px;
+    font-size: 0.8rem;
+    margin-top: 6px;
     color: #333;
     font-weight: bold;
     text-transform: uppercase;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 100%;
-    text-align: center;
+    max-width: 100%;
 }
 
 @keyframes swing {
