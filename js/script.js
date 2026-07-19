@@ -578,7 +578,7 @@ function renderMessages(data) {
                 const dx = Math.abs(placed.x - leftPercent);
                 const dy = Math.abs(placed.y - topPercent);
                 // Карточка примерно 8-10% в ширину и 10-12% в высоту, берём запас
-                if (dx < 30 && dy < 40) {
+                if (dx < 8 && dy < 12) {
                     isOverlapping = true;
                     break;
                 }
@@ -608,7 +608,7 @@ function renderMessages(data) {
         if (firstMedia.type === 'image') {
             previewHtml = `<div class="polaroid-img-preview" style="background-image: url('${firstMedia.url}');"></div>`;
         } else if (firstMedia.type === 'video') {
-            previewHtml = `<div class="polaroid-img-preview" style="background: #2a2a2a; display:flex; align-items:center; justify-content:center; color:#C9A25B; font-size:48px;"><i class="fas fa-video"></i></div>`;
+            previewHtml = `<div class="polaroid-img-preview" style="background: #2a2a2a; display:flex; align-items:center; justify-content:center; color:#C9A25B; font-size:18px;"><i class="fas fa-video"></i></div>`;
         }
     } else {
         const shortText = msg.text.length > 20 ? msg.text.substring(0, 20) + '...' : msg.text;
